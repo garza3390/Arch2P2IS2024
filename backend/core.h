@@ -5,19 +5,22 @@
 #include <array>
 #include <string>
 #include "cache.h"
-#include "ram.h"
-#include "bus.h"
 #include "instructions_memory.h"
+
+struct bus;
 
 struct core {
     cache core_cache;                         // Cada core tiene su propia memoria cache
-    std::array<uint64_t, 4> registers;        // 4 registros de 64 bits: REG0, REG1, REG2, REG3
+    std::array<uint64_t, 4> registers = {0};  // 4 registros de 64 bits, inicializados a 0
 
-    // Función para cargar datos desde RAM a un registro
-    void load(int reg, uint64_t addr, RAM &memory, bus &system_bus);
+    // Constructor que inicializa el índice de la cache
+    core(int index) : core_cache(index) {}
 
-    // Función para almacenar datos de un registro en RAM
-    void store(int reg, uint64_t addr, RAM &memory, bus &system_bus);
+    // Función para cargar datos desde cache o RAM en caso de un miss
+    uint64_t load(int block, uint64_t addr, bus bus);
+
+    // Función para almacenar datos en cache
+    void store(int block, uint64_t addr, uint64_t data, bus bus);
 
     // Incrementar el valor en un registro 
     void inc(int reg);
