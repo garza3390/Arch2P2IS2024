@@ -13,13 +13,13 @@ void execute_core(core &c, RAM &ram, bus &system_bus) {
     c.store(0, 20, ram, system_bus); // Guardar REG0 en memoria[20]
 }
 
-int main() {
+int main(int argc, char *argv[]) {
 
-    auto app = Gtk::Application::create("org.gtkmm.example");
+    auto app = Gtk::Application::create(argc, argv, "org.gtkmm.ejemplo");
 
-    Window w;
+    MiVentana ventana;
 
-    app->run(w);
+    return app->run(ventana);
 
     /*
     RAM system_ram;
