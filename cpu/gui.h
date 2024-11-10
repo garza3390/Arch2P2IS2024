@@ -2,6 +2,10 @@
 #define GUI_H
 
 #include <gtkmm.h>
+#include <sstream>
+#include <iostream>
+#include <pango/pango.h> // Incluye Pango para manejar fuentes
+
 
 class MiVentana : public Gtk::Window {
 public:
@@ -10,6 +14,7 @@ public:
 
     // Función para inicializar la ventana
     void init_window();
+    void actualizar_mem_box(const long datos[256]);
 
 private:
 
