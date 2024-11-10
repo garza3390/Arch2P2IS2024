@@ -15,8 +15,19 @@ public:
     // Función para inicializar la ventana
     void init_window();
     void actualizar_mem_box(const long datos[256]);
+    void actualizar_label(int cpu, int cache, const std::string& mesi_text, const std::string& addr_text, const std::string& data_text);
+
+    // Estructura que almacena las etiquetas de cada grupo
+    struct EtiquetasCache {
+        Gtk::Label* mesi_label;
+        Gtk::Label* addr_label;
+        Gtk::Label* data_label;
+    };
+
 
 private:
+
+    std::vector<EtiquetasCache> etiquetas_cache;
 
 
     Gtk::Button boton;
@@ -33,6 +44,7 @@ private:
                                   Gtk::ComboBoxText* instr_dropdown, 
                                   Gtk::ComboBoxText* reg_dropdown, 
                                   Gtk::Entry* addr_entry);
+                                  
 
 
     //crea scrollbar
