@@ -3,6 +3,7 @@
 #include "cache.h"
 #include "bus.h"
 #include "core.h"
+#include "gui.h"
 
 
 // Función para ejecutar un core
@@ -13,6 +14,14 @@ void execute_core(core &c, RAM &ram, bus &system_bus) {
 }
 
 int main() {
+
+    auto app = Gtk::Application::create("org.gtkmm.example");
+
+    Window w;
+
+    app->run(w);
+
+    /*
     RAM system_ram;
     bus system_bus;
     core core_0, core_1;
@@ -38,6 +47,6 @@ int main() {
     // Mostrar el estado MOESI de cada cache
     core_0.core_cache.print_cache_state("Core 0");
     core_1.core_cache.print_cache_state("Core 1");
-
+    */
     return 0;
 }
