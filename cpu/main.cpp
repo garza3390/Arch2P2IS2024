@@ -19,7 +19,12 @@ int main(int argc, char *argv[]) {
 
     MiVentana ventana;
 
-    return app->run(ventana);
+    long datos[256] = {0}; // Llena el array con los datos que desees
+    
+    app->run(ventana);
+    
+    
+    return 0;
 
     /*
     RAM system_ram;

@@ -1,5 +1,4 @@
 #include "gui.h"
-#include <iostream>
 
 MiVentana::MiVentana() {
 
@@ -44,18 +43,52 @@ void MiVentana::create_mem_scroll_bar() {
     // Contenedor dentro del scroll (en este caso, un Gtk::Box)
     scroll_box.set_orientation(Gtk::ORIENTATION_VERTICAL); // Caja vertical para los elementos
 
-    // Crear y agregar 256 elementos (dirección en hexadecimal y valor 26)
     for (int i = 0; i < 256; ++i) {
-    // Crear el texto de la dirección en formato "0x## : 26"
-    std::string direccion = "0xFF   :    26"; 
-    Gtk::Label* label = new Gtk::Label(direccion);
-    label->set_xalign(0.0f);
-    scroll_box.pack_start(*label, Gtk::PACK_SHRINK);
+        std::ostringstream oss;
+        oss << "0x" << std::hex << std::uppercase << (i < 16 ? "0" : "") << i << "   :    00"; // Usa "26" como un valor de ejemplo
+        std::string direccion = oss.str();
+
+        Gtk::Label* label = new Gtk::Label(direccion);
+        label->set_xalign(0.0f);
+
+        // Configurar la fuente a "Consolas"
+        Pango::FontDescription font_desc("Consolas 10"); // "12" es el tamaño de la fuente
+        label->override_font(font_desc);
+
+        scroll_box.pack_start(*label, Gtk::PACK_SHRINK);
     }
 
     // Agregar la caja al contenedor con scroll
     scrolled_window.add(scroll_box);
 }
+
+void MiVentana::actualizar_mem_box(const long datos[256]) {
+
+    for (auto* child : scroll_box.get_children()) {
+        scroll_box.remove(*child);
+        delete child; // Eliminar los widgets para evitar fugas de memoria
+    }
+
+    // Crear y agregar los nuevos elementos con los datos del array
+    for (int i = 0; i < 256; ++i) {
+        std::ostringstream oss;
+        oss << "0x" << std::hex << std::uppercase << (i < 16 ? "0" : "") << i << "   :    " << datos[i];
+        std::string direccion = oss.str();
+
+        Gtk::Label* label = new Gtk::Label(direccion);
+        label->set_xalign(0.0f);
+
+        // Configurar la fuente a "Consolas"
+        Pango::FontDescription font_desc("Consolas 10"); // Tamaño de fuente "10"
+        label->override_font(font_desc);
+
+        scroll_box.pack_start(*label, Gtk::PACK_SHRINK);
+    }
+
+    // Mostrar los nuevos elementos
+    show_all_children();
+}
+
 
 
 
