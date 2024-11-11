@@ -12,16 +12,18 @@ cache::cache(uint64_t index) {
     invalidations = 0;               // Inicializa las invalidaciones en 0
 }
 
-uint64_t cache::read(int block, uint64_t addr,  bus bus) {
+uint64_t cache::read(int block, uint64_t addr,  bus& bus) {
 
     if (moesi_state[block] == "I") {  // Si el bloque está en estado inválido
         cache_misses++;
-        
         uint64_t data_m = bus.read_request(addr, index, block);
-
         addresses[block] = addr;
-        moesi_state[block] = "S";  // Cambia el estado a compartido después de cargar
         data[block] = data_m;  // Carga el dato desde la memoria
+        moesi_state[block] = bus.connected_caches[index]->moesi_state[block];
+
+        //moesi_state[0] = bus.connected_caches[0].moesi_state[0];
+        //std::cout << "Cache 0 bloque 0 - " <<  bus.connected_caches[0].moesi_state[0] << "\n";
+        
         bus.read_requests++;
         bus.data_transmitted += 64;  // Se transmiten 64 bits
 
@@ -34,7 +36,7 @@ uint64_t cache::read(int block, uint64_t addr,  bus bus) {
 
 
 
-void cache::write(int block, uint64_t addr, uint64_t data, bus bus) {
+void cache::write(int block, uint64_t addr, uint64_t data, bus& bus) {
     if (moesi_state[block] == "I" || moesi_state[block] == "S") {
         moesi_state[block] = "M";  // Modificamos el bloque
     }

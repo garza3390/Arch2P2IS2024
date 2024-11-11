@@ -21,8 +21,9 @@ struct cache {
     // Constructor
     cache(uint64_t index);
 
-    uint64_t read(int block, uint64_t addr, bus bus);
-    void write(int block, uint64_t addr, uint64_t data, bus bus);
+    uint64_t read(int block, uint64_t addr, bus& bus);
+
+    void write(int block, uint64_t addr, uint64_t data, bus& bus);
 
     // Función para imprimir el estado de cada bloque en la cache
     void print_cache_state(const std::string &core_name);

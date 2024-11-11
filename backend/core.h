@@ -17,10 +17,10 @@ struct core {
     core(int index) : core_cache(index) {}
 
     // Función para cargar datos desde cache o RAM en caso de un miss
-    uint64_t load(int block, uint64_t addr, bus bus);
+    uint64_t load(int block, uint64_t addr, bus& bus);
 
     // Función para almacenar datos en cache
-    void store(int block, uint64_t addr, uint64_t data, bus bus);
+    void store(int block, uint64_t addr, uint64_t data, bus& bus);
 
     // Incrementar el valor en un registro 
     void inc(int reg);

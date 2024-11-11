@@ -3,18 +3,22 @@
 
 // Constructor del bus
 bus::bus(core& core0, core& core1, core& core2, core& core3, RAM& ram)
-    : address_port{0}, data_port{0}, coreA(core0), coreB(core1), coreC(core2), coreD(core3), ram(ram) {
+    : address_port{0}, data_port{0}, ram(ram) {
     
     connected_caches.resize(4);
-    connected_caches[0] = core0.core_cache;
-    connected_caches[1] = core1.core_cache;
-    connected_caches[2] = core2.core_cache;
-    connected_caches[3] = core3.core_cache;
+    connected_caches[0] = &core0.core_cache;
+    connected_caches[1] = &core1.core_cache;
+    connected_caches[2] = &core2.core_cache;
+    connected_caches[3] = &core3.core_cache;
 
     read_requests = 0;
     write_requests = 0;
     invalidations = 0;
     data_transmitted = 0;
+}
+
+void bus::update_cache() {
+    
 }
 
 // Función para manejar una solicitud de lectura en el bus
@@ -23,9 +27,9 @@ uint64_t bus::read_request(uint64_t address, uint64_t cache_index, uint64_t cach
     uint64_t data = 0;
     
     // Revisar si la dirección está en la caché local
-    if (connected_caches[cache_index].moesi_state[cache_block] != "I") {
+    if (connected_caches[cache_index]->moesi_state[cache_block] != "I") {
         // Si no está en estado "I", se encuentra en la caché
-        data = connected_caches[cache_index].data[cache_block];
+        data = connected_caches[cache_index]->data[cache_block];
         data_port[address] = data;
         address_port[address] = address;
 
@@ -39,35 +43,49 @@ uint64_t bus::read_request(uint64_t address, uint64_t cache_index, uint64_t cach
             if (i != cache_index) {
                 // Buscar en las otras cachés por la misma dirección
                 for (int block = 0; block < 8; ++block) {
-                    if (connected_caches[i].addresses[block] == address) {
+
+                    //std::cout << "\n connected_cache 0: " << connected_caches[0].addresses[0] << "\n";
+                    //std::cout << "\n address: " << address << "\n";
+                    //std::cout << "\n cache core 0: " << coreA.core_cache.addresses[0] << "\n";
+                    
+
+                    if (connected_caches[i]->addresses[block] == address) {
                         // Si encontramos el bloque, revisamos el estado MOESI
-                        std::string& other_state = connected_caches[i].moesi_state[block];
+                        std::string& other_state = connected_caches[i]->moesi_state[block];
 
                         if (other_state == "M" || other_state == "O" || other_state == "E" || other_state == "S") {
                             // Si el estado es "M", "O", "E" o "S", tomamos el dato
-                            data = connected_caches[i].data[block];
+                            data = connected_caches[i]->data[block];
 
                             // Actualizamos las cachés con la nueva dirección y dato
-                            connected_caches[cache_index].data[cache_block] = data;
-                            connected_caches[cache_index].addresses[cache_block] = address;
+                            connected_caches[cache_index]->data[cache_block] = data;
+                            connected_caches[cache_index]->addresses[cache_block] = address;
 
                             if (other_state == "E"){
-                                connected_caches[cache_index].moesi_state[cache_block] = "S";
-                                connected_caches[i].moesi_state[block] = "O";
+
+                                std::cout << "\n 000000000000000 \n";
+                                
+                                connected_caches[cache_index]->moesi_state[cache_block] = "S";
+                                connected_caches[i]->moesi_state[block] = "O";
                             }
                             else if (other_state == "O"){
-                                connected_caches[cache_index].moesi_state[cache_block] = "S";
-                                connected_caches[i].moesi_state[block] = "O";
+                                connected_caches[cache_index]->moesi_state[cache_block] = "S";
+                                connected_caches[i]->moesi_state[block] = "O";
                             }
                             else if (other_state == "M" || other_state == "S"){
-                                connected_caches[cache_index].moesi_state[cache_block] = "S";
-                                connected_caches[i].moesi_state[block] = "S";
+                                connected_caches[cache_index]->moesi_state[cache_block] = "S";
+                                connected_caches[i]->moesi_state[block] = "S";
+
                             }
                             
 
                             // Actualizar los puertos del bus
                             data_port[address] = data;
                             address_port[address] = address;
+                            
+
+                            //std::cout << connected_caches[i].moesi_state[block] << "\n";
+                            //std::cout << connected_caches[cache_index].moesi_state[cache_block] << "\n";
 
                             std::cout << "Bus: Lectura completada desde caché " << i << " en la dirección " << address << " con el dato " << data << std::endl;
                             found = true;
@@ -84,13 +102,13 @@ uint64_t bus::read_request(uint64_t address, uint64_t cache_index, uint64_t cach
             data = ram.read(address);
             data_port[address] = data;
             address_port[address] = address;
-            connected_caches[cache_index].data[cache_block] = data;
-            connected_caches[cache_index].addresses[cache_block] = address;
-            connected_caches[cache_index].moesi_state[cache_block] = "E";
+            connected_caches[cache_index]->data[cache_block] = data;
+            connected_caches[cache_index]->addresses[cache_block] = address;
+            connected_caches[cache_index]->moesi_state[cache_block] = "E";
             std::cout << "Bus: Lectura completada desde RAM en la dirección " << address << " con el dato " << data << std::endl;
         }
     }
-
+    
     return data;
 }
 
@@ -107,14 +125,14 @@ void bus::write_request(uint64_t address, uint64_t data, uint64_t cache_index, u
 // Función para actualizar el estado MOESI en el bus
 void bus::update_moesi_state(uint64_t address, uint64_t data, uint64_t cache_index, uint64_t cache_block) {
     // Estado actual del bloque en la caché de origen
-    std::string& current_state = connected_caches[cache_index].moesi_state[cache_block];
+    std::string& current_state = connected_caches[cache_index]->moesi_state[cache_block];
     
     // Recorrer todas las cachés conectadas para aplicar el protocolo MOESI
     for (int i = 0; i < connected_caches.size(); ++i) {
         // Omitimos la caché de origen
         if (i == cache_index) continue;
 
-        std::string& other_state = connected_caches[i].moesi_state[cache_block];
+        std::string& other_state = connected_caches[i]->moesi_state[cache_block];
         
         // Transiciones de estado según el protocolo MOESI
         if (current_state == "I") {
