@@ -37,11 +37,7 @@ uint64_t cache::read(int block, uint64_t addr,  bus& bus) {
 
 
 void cache::write(int block, uint64_t addr, uint64_t data, bus& bus) {
-    if (moesi_state[block] == "I" || moesi_state[block] == "S") {
-        moesi_state[block] = "M";  // Modificamos el bloque
-    }
-    this->data[block] = data;  // Guardar en cache
-    bus.write_requests++;
+    bus.write_request(addr, data, index, block);
 }
 
 // Imprimir el estado de cada bloque en la cache

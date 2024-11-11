@@ -44,6 +44,12 @@ int main() {
 
     std::cout << "\n ############################################# \n";
 
+    core1.store(block, address, data, bus);
+
+    // Imprimir estados para verificar el cumplimiento del protocolo
+    core0.core_cache.print_cache_state("Core 0");
+    core1.core_cache.print_cache_state("Core 1");
+    core3.core_cache.print_cache_state("Core 3");
 
     /*
     std::cout << "\n------------------------------------------\n";

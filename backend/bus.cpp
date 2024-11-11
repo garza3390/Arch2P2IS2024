@@ -43,12 +43,6 @@ uint64_t bus::read_request(uint64_t address, uint64_t cache_index, uint64_t cach
             if (i != cache_index) {
                 // Buscar en las otras cachés por la misma dirección
                 for (int block = 0; block < 8; ++block) {
-
-                    //std::cout << "\n connected_cache 0: " << connected_caches[0].addresses[0] << "\n";
-                    //std::cout << "\n address: " << address << "\n";
-                    //std::cout << "\n cache core 0: " << coreA.core_cache.addresses[0] << "\n";
-                    
-
                     if (connected_caches[i]->addresses[block] == address) {
                         // Si encontramos el bloque, revisamos el estado MOESI
                         std::string& other_state = connected_caches[i]->moesi_state[block];
@@ -111,11 +105,27 @@ uint64_t bus::read_request(uint64_t address, uint64_t cache_index, uint64_t cach
 
 // Función para manejar una solicitud de escritura en el bus
 void bus::write_request(uint64_t address, uint64_t data, uint64_t cache_index, uint64_t cache_block) {
+    if (connected_caches[cache_index]->moesi_state[cache_block] == "I" || connected_caches[cache_index]->moesi_state[cache_block] == "S") {
+        connected_caches[cache_index]->moesi_state[cache_block] = "M";  
+    }
+    connected_caches[cache_index]->data[cache_block] = data;  // Guardar en cache
+
     write_requests++;
     data_port[address] = data;
+    address_port[address] = address;
     data_transmitted += sizeof(data);
-    update_moesi_state(address, data, cache_index, cache_block);
-    std::cout << "Bus: Escritura completada en la dirección " << address << " con el dato " << data_port[address] << std::endl;
+
+    for (int i = 0; i < connected_caches.size(); ++i) {
+            if (i != cache_index) {
+                // Buscar en las otras cachés por la misma dirección
+                for (int block = 0; block < 8; ++block) {
+                    if (connected_caches[i]->addresses[block] == address) {
+                        connected_caches[i]->moesi_state[block] = "I";
+                    }
+                }
+            }
+        }
+    std::cout << "Bus: Escritura completada en la cache " << cache_index << " en el bloque " << cache_block << " con el dato " << data << std::endl;
 }
 
 
