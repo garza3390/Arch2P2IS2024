@@ -23,19 +23,26 @@ int main() {
     // Imprimir estados para verificar el cumplimiento del protocolo
     core0.core_cache.print_cache_state("Core 0");
     
-    std::cout << "\n------------------------------------------\n";
+    std::cout << "\n ############################################# \n";
     
     // Lectura en Core 3 (core 0 block 0 estado O, core 3 block 0 estado S)
     loaded_data = core3.load(block, address, bus);
-    
     
     // Imprimir estados para verificar el cumplimiento del protocolo
     core0.core_cache.print_cache_state("Core 0");
     core3.core_cache.print_cache_state("Core 3");
 
+    std::cout << "\n ############################################# \n";
 
+    // Lectura en Core 3 (core 0 block 0 estado O, core 3 block 0 estado S)
+    loaded_data = core1.load(block, address, bus);
     
-    std::cout << "\n------------------------------------------\n";
+    // Imprimir estados para verificar el cumplimiento del protocolo
+    core0.core_cache.print_cache_state("Core 0");
+    core1.core_cache.print_cache_state("Core 1");
+    core3.core_cache.print_cache_state("Core 3");
+
+    std::cout << "\n ############################################# \n";
 
 
     /*

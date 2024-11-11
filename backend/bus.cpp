@@ -62,9 +62,6 @@ uint64_t bus::read_request(uint64_t address, uint64_t cache_index, uint64_t cach
                             connected_caches[cache_index]->addresses[cache_block] = address;
 
                             if (other_state == "E"){
-
-                                std::cout << "\n 000000000000000 \n";
-                                
                                 connected_caches[cache_index]->moesi_state[cache_block] = "S";
                                 connected_caches[i]->moesi_state[block] = "O";
                             }
