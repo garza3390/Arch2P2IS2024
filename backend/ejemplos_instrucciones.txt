@@ -1,0 +1,16 @@
+LOAD 1, 0, 10        ; Cargar desde el bloque 0 el dato que hay en la dirección 10 en el registro 1 del cpu
+STORE 2, 0, 11, 30       ; Almacenar en el bloque 0 y en el registro 2 del cpu, el valor 11 que corresponde a la dirección 30 en ram
+INC 0                ; Incrementar el valor en el bloque 0
+DEC 1                ; Decrementar el valor en el bloque 1
+JNZ 1, loop_start    ; Si el valor en el registro 1 del cpu no es cero, saltar a la etiqueta loop_start
+
+
+
+
+LOAD 1 0 10
+INC 1
+STORE 0 0 3 30
+LOAD 0 1 10
+loop_start
+DEC 0
+JNZ 1 loop_start

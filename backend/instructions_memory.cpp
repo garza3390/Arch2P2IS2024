@@ -16,22 +16,41 @@ instruction_memory::instruction_memory(uint64_t cache_index) {
     while (std::getline(file, line)) {
         std::istringstream iss(line);
         Instruction inst;
-        iss >> inst.operation >> inst.block >> inst.address >> inst.reg >> inst.label;
+        iss >> inst.mnemonic;
+
+        if (inst.mnemonic == "INC" || inst.mnemonic == "DEC") {
+            // Leer solo el bloque
+            iss >> inst.reg;
+        } 
+        else if (inst.mnemonic == "JNZ") {
+            // Leer registro y etiqueta
+            iss >> inst.reg >> inst.label;
+        }
+        else if (inst.mnemonic == "LOAD") {
+            // Leer registro, bloque y dirección
+            iss >> inst.reg >> inst.block >> inst.address;
+        } else if (inst.mnemonic == "STORE") {
+            // Leer registro, bloque, dato y dirección
+            iss >> inst.reg >> inst.block >> inst.data >> inst.address;
+        }
+
+        // Agregar la instrucción al vector de instrucciones
         instructions.push_back(inst);
     }
+
     file.close();
 }
 
-std::string instruction_memory::read_line(int line_num) const {
+Instruction instruction_memory::read_line(int line_num) {
     if (line_num >= 0 && line_num < instructions.size()) {
-        return instructions[line_num].operation;
+        return instructions[line_num];
     }
-    return "";
+    return Instruction{}; // Devuelve una instancia vacía de Instruction
 }
 
-int instruction_memory::find_label_line(const std::string& label) const {
+int instruction_memory::find_label_line(std::string label) {
     for (size_t i = 0; i < instructions.size(); ++i) {
-        if (instructions[i].operation == label) {
+        if (instructions[i].mnemonic == label) {
             return i;
         }
     }

@@ -18,10 +18,16 @@ int main() {
     threads.emplace_back(&core::start, &core2, std::ref(bus));
     threads.emplace_back(&core::start, &core3, std::ref(bus));
 
+
     // Esperar a que todos los hilos terminen
     for (auto& thread : threads) {
         thread.join();
     }
+
+    // Imprimir estados para verificar el cumplimiento del protocolo
+    core0.core_cache.print_cache_state("Core 0");
+    core1.core_cache.print_cache_state("Core 1");
+    core3.core_cache.print_cache_state("Core 3");
 
     return 0;
 }

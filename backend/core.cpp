@@ -43,23 +43,23 @@ void core::start(bus& bus) {
     while (current_line < inst_mem.instructions.size()) {
         const auto& inst = inst_mem.instructions[current_line];
 
-        if (inst.operation == "LOAD") {
+        if (inst.mnemonic == "LOAD") {
             uint64_t data = load(inst.block, inst.address, bus);
             registers[inst.reg] = data;
             current_line++;
-        } else if (inst.operation == "STORE") {
+        } else if (inst.mnemonic == "STORE") {
             store(inst.block, inst.address, registers[inst.reg], bus);
             current_line++;
-        } else if (inst.operation == "INC") {
-            inc(inst.reg);
+        } else if (inst.mnemonic == "INC") {
+            inc(registers[inst.reg]);
             current_line++;
-        } else if (inst.operation == "DEC") {
-            dec(inst.reg);
+        } else if (inst.mnemonic == "DEC") {
+            dec(registers[inst.reg]);
             current_line++;
-        } else if (inst.operation == "JNZ") {
-            current_line = jnz(inst.reg, inst.label, current_line);
+        } else if (inst.mnemonic == "JNZ") {
+            current_line = jnz(registers[inst.reg], inst.label, current_line);
         } else {
-            std::cerr << "Instrucción desconocida: " << inst.operation << std::endl;
+            std::cerr << "Instrucción desconocida: " << inst.mnemonic << std::endl;
             current_line++;
         }
     }

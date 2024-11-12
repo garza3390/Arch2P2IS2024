@@ -5,10 +5,11 @@
 #include <string>
 
 struct Instruction {
-    std::string operation;
+    std::string mnemonic;
     int block;
-    uint64_t address;
     int reg;
+    uint64_t address;
+    uint64_t data;
     std::string label;
 };
 
@@ -19,10 +20,10 @@ struct instruction_memory {
     instruction_memory(uint64_t cache_index);
 
     // Función para leer una línea específica de las instrucciones
-    std::string read_line(int line_num) const;
+    Instruction read_line(int line_num);
 
     // Función para encontrar el número de línea de una etiqueta
-    int find_label_line(const std::string& label) const;
+    int find_label_line(std::string label);
 };
 
 #endif // INSTRUCTION_MEMORY_H
