@@ -4,8 +4,8 @@
 #include <thread>
 
 int main() {
-    bool moesi_protocol = true;
-    
+    bool moesi_protocol = false;
+
     RAM ram;
     core core0(0, moesi_protocol); 
     core core1(1, moesi_protocol); 

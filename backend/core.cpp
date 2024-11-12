@@ -59,7 +59,7 @@ void core::start(bus& bus) {
         } else if (inst.mnemonic == "JNZ") {
             current_line = jnz(registers[inst.reg], inst.label, current_line);
         } else {
-            std::cerr << "Instrucción desconocida: " << inst.mnemonic << std::endl;
+            std::cout << "Etiqueta: " << inst.mnemonic << std::endl;
             current_line++;
         }
     }
