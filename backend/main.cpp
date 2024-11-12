@@ -1,6 +1,7 @@
 #include "bus.h"
 #include "core.h"
 #include "ram.h"
+#include <thread>
 
 int main() {
     RAM ram;
@@ -9,54 +10,18 @@ int main() {
     core core2(2);
     core core3(3);
     bus bus(core0, core1, core2, core3, ram);
-    uint64_t loaded_data = 0;
-
-    uint64_t address = 10; 
-    uint64_t block = 0;
-    uint64_t data = 369;
     
-    std::cout << "\n------------------------------------------\n";
+    // Crear hilos para ejecutar el método start en cada core
+    std::vector<std::thread> threads;
+    threads.emplace_back(&core::start, &core0, std::ref(bus));
+    threads.emplace_back(&core::start, &core1, std::ref(bus));
+    threads.emplace_back(&core::start, &core2, std::ref(bus));
+    threads.emplace_back(&core::start, &core3, std::ref(bus));
 
-    // Primera lectura en Core 0 (debe ir a estado Exclusive E)
-    loaded_data = core0.load(block, address, bus);
-    
-    // Imprimir estados para verificar el cumplimiento del protocolo
-    core0.core_cache.print_cache_state("Core 0");
-    
-    std::cout << "\n ############################################# \n";
-    
-    // Lectura en Core 3 (core 0 block 0 estado O, core 3 block 0 estado S)
-    loaded_data = core3.load(block, address, bus);
-    
-    // Imprimir estados para verificar el cumplimiento del protocolo
-    core0.core_cache.print_cache_state("Core 0");
-    core3.core_cache.print_cache_state("Core 3");
-
-    std::cout << "\n ############################################# \n";
-
-    // Lectura en Core 3 (core 0 block 0 estado O, core 3 block 0 estado S)
-    loaded_data = core1.load(block, address, bus);
-    
-    // Imprimir estados para verificar el cumplimiento del protocolo
-    core0.core_cache.print_cache_state("Core 0");
-    core1.core_cache.print_cache_state("Core 1");
-    core3.core_cache.print_cache_state("Core 3");
-
-    std::cout << "\n ############################################# \n";
-
-    core1.store(block, address, data, bus);
-
-    // Imprimir estados para verificar el cumplimiento del protocolo
-    core0.core_cache.print_cache_state("Core 0");
-    core1.core_cache.print_cache_state("Core 1");
-    core3.core_cache.print_cache_state("Core 3");
-
-    /*
-    std::cout << "\n------------------------------------------\n";
-    
-    //bus.print_bus_state();
-    //memory.print_ram_state();
-     */
+    // Esperar a que todos los hilos terminen
+    for (auto& thread : threads) {
+        thread.join();
+    }
 
     return 0;
 }

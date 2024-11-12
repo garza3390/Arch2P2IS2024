@@ -1,10 +1,10 @@
 #ifndef CORE_H
 #define CORE_H
 
-//#include <cstdint>
 #include <array>
 #include <string>
 #include "cache.h"
+#include <mutex>
 #include "instructions_memory.h"
 
 struct bus;
@@ -12,9 +12,11 @@ struct bus;
 struct core {
     cache core_cache;                         // Cada core tiene su propia memoria cache
     std::array<uint64_t, 4> registers = {0};  // 4 registros de 64 bits, inicializados a 0
+    instruction_memory inst_mem;
+    std::mutex bus_mutex;
 
     // Constructor que inicializa el índice de la cache
-    core(int index) : core_cache(index) {}
+    core(int index) : core_cache(index), inst_mem(index) {}
 
     // Función para cargar datos desde cache o RAM en caso de un miss
     uint64_t load(int block, uint64_t addr, bus& bus);
@@ -29,7 +31,10 @@ struct core {
     void dec(int reg);
 
     // Salto condicional si el valor en el registro no es cero
-    void jnz(int reg, std::string label, instruction_memory &inst_mem);
+    int jnz(int reg, const std::string& label, int current_line);
+
+    // Función que ejecuta las instrucciones
+    void start(bus& bus);
 };
 
 #endif  // CORE_H
