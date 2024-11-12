@@ -2,7 +2,8 @@
 #include "bus.h"
 
 // Constructor
-cache::cache(uint64_t index) {
+cache::cache(uint64_t index, bool moesi_protocol) {
+    this->moesi_protocol = moesi_protocol;
     this->index = index;             // Asignar el índice recibido como parámetro
     data.fill(0);                    // Inicializa los datos con 0
     addresses.fill(0);               // Inicializa las direcciones con 0
@@ -16,7 +17,16 @@ uint64_t cache::read(int block, uint64_t addr,  bus& bus) {
 
     if (moesi_state[block] == "I") {  // Si el bloque está en estado inválido
         cache_misses++;
-        uint64_t data_m = bus.read_request(addr, index, block);
+        uint64_t data_m = 0;
+        //uint64_t data_m = bus.read_request(addr, index, block);
+
+        if(this->moesi_protocol == false){
+            data_m = bus.read_request_mesi(addr, index, block);
+        }
+        else{
+            data_m = bus.read_request_moesi(addr, index, block);
+        }
+
         addresses[block] = addr;
         data[block] = data_m;  // Carga el dato desde la memoria
         moesi_state[block] = bus.connected_caches[index]->moesi_state[block];
@@ -37,7 +47,13 @@ uint64_t cache::read(int block, uint64_t addr,  bus& bus) {
 
 
 void cache::write(int block, uint64_t addr, uint64_t data, bus& bus) {
-    bus.write_request(addr, data, index, block);
+    //bus.write_request(addr, data, index, block);
+    if(this->moesi_protocol == false){
+            bus.write_request_mesi(addr, data, index, block);
+        }
+    else{
+            bus.write_request_moesi(addr, data, index, block);
+    }
 }
 
 // Imprimir el estado de cada bloque en la cache

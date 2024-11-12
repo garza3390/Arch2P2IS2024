@@ -48,7 +48,7 @@ void core::start(bus& bus) {
             registers[inst.reg] = data;
             current_line++;
         } else if (inst.mnemonic == "STORE") {
-            store(inst.block, inst.address, registers[inst.reg], bus);
+            store(inst.block, inst.address, inst.data, bus);
             current_line++;
         } else if (inst.mnemonic == "INC") {
             inc(registers[inst.reg]);

@@ -16,7 +16,7 @@ struct core {
     std::mutex bus_mutex;
 
     // Constructor que inicializa el índice de la cache
-    core(int index) : core_cache(index), inst_mem(index) {}
+    core(int index, bool moesi_protocol) : core_cache(index, moesi_protocol), inst_mem(index) {}
 
     // Función para cargar datos desde cache o RAM en caso de un miss
     uint64_t load(int block, uint64_t addr, bus& bus);

@@ -3,7 +3,7 @@
 
 // Constructor
 RAM::RAM() {
-    memory.fill(0);  // Inicializa toda la memoria con ceros
+    memory.fill(9);  // Inicializa toda la memoria con ceros
 }
 
 // Lee desde una dirección de memoria y actualiza el bus

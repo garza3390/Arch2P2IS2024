@@ -14,12 +14,13 @@ struct cache {
     std::array<uint64_t, 8> addresses;        // Direcciones correspondientes
     std::array<std::string, 8> moesi_state;   // Estados MOESI por bloque
     bool bus_access_enabled = true;           // Acceso habilitado al bus
+    bool moesi_protocol = true;
     int cache_misses = 0;
     int invalidations = 0;
 
     cache() : index(0) {}
     // Constructor
-    cache(uint64_t index);
+    cache(uint64_t index, bool moesi_protocol);
 
     uint64_t read(int block, uint64_t addr, bus& bus);
 

@@ -16,10 +16,6 @@ struct bus {
     std::array<uint64_t, 256> data_port;     // Puerto de datos (conectado a RAM y cache de cada core)
     std::vector<cache*> connected_caches;   // Puerto compartido para estados MOESI entre caches de los cores
     
-    //core coreA;
-    //core coreB;
-    //core coreC;
-    //core coreD;
     RAM ram;
 
     // Contadores para eventos del bus
@@ -34,13 +30,16 @@ struct bus {
     void update_cache();
 
     // Función para manejar una solicitud de lectura en el bus
-    uint64_t read_request(uint64_t address, uint64_t cache_index, uint64_t cache_block);
+    uint64_t read_request_moesi(uint64_t address, uint64_t cache_index, uint64_t cache_block);
 
     // Función para manejar una solicitud de escritura en el bus
-    void write_request(uint64_t address, uint64_t data, uint64_t cache_index, uint64_t cache_block);
+    void write_request_moesi(uint64_t address, uint64_t data, uint64_t cache_index, uint64_t cache_block);
 
-    // Función para actualizar el estado MOESI en el bus
-    void update_moesi_state(uint64_t address, uint64_t data, uint64_t cache_index, uint64_t cache_block);
+    // Función para manejar una solicitud de lectura en el bus
+    uint64_t read_request_mesi(uint64_t address, uint64_t cache_index, uint64_t cache_block);
+
+    // Función para manejar una solicitud de escritura en el bus
+    void write_request_mesi(uint64_t address, uint64_t data, uint64_t cache_index, uint64_t cache_block);
 
     // Función para imprimir el estado del bus
     void print_bus_state() const;

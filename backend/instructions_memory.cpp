@@ -32,6 +32,7 @@ instruction_memory::instruction_memory(uint64_t cache_index) {
         } else if (inst.mnemonic == "STORE") {
             // Leer registro, bloque, dato y dirección
             iss >> inst.reg >> inst.block >> inst.data >> inst.address;
+            std::cout << "inst data " << inst.data;
         }
 
         // Agregar la instrucción al vector de instrucciones
