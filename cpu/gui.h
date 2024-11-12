@@ -15,8 +15,8 @@ public:
     // Función para inicializar la ventana
     void init_window();
     void actualizar_mem_box(const long datos[256]);
-    void actualizar_label(int cpu, int cache, const std::string& mesi_text, const std::string& addr_text, const std::string& data_text);
-
+    void actualizar_cache(int cpu, int cache, const std::string& mesi_text, const std::string& addr_text, const std::string& data_text);
+    void actualizar_reg(int cpu, int reg, int data);
     // Estructura que almacena las etiquetas de cada grupo
     struct EtiquetasCache {
         Gtk::Label* mesi_label;
@@ -28,6 +28,7 @@ public:
 private:
 
     std::vector<EtiquetasCache> etiquetas_cache;
+    std::vector<Gtk::Label*> etiquetas_reg;
 
 
     Gtk::Button boton;
@@ -56,6 +57,11 @@ private:
     void create_info_grid();
     void create_mem_grid();
 
+
+    void gestion_LOAD(int cpu, const std::string& addr_text, const std::string& data_text);
+    void gestion_STORE(int cpu, const std::string& addr_text, const std::string& data_text);
+    void gestion_DEC(int cpu, int reg, int data);
+    void gestion_INC(int cpu, int reg, int data);
 
 };
 #endif // GUI_H

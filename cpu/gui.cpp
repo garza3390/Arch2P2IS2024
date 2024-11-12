@@ -140,8 +140,6 @@ void MiVentana::create_cpu_grid(int row, int col, const std::string& label_text)
         // Crear un objeto EtiquetasCache y almacenarlo en la lista
         EtiquetasCache cache = { mesi_label, addr_label, data_label };
         etiquetas_cache.push_back(cache);   
-        
-        
         // Calcular las filas y columnas
         int row_index = i / 2; // Esto divide las etiquetas en 4 filas
         int col_index = i % 2; // Esto asigna las etiquetas a las columnas 0 y 1
@@ -192,6 +190,35 @@ void MiVentana::create_cpu_grid(int row, int col, const std::string& label_text)
 
 
 
+    // Crear un nuevo sub-grid para las 3 etiquetas
+        Gtk::Grid* reg_grid = Gtk::make_managed<Gtk::Grid>();
+        reg_grid->set_row_homogeneous(true);  // Opcional: hace que las filas sean homogéneas en tamaño
+        reg_grid->set_column_homogeneous(true);
+        
+
+        // Etiqueta con el número de `i` al inicio
+        Gtk::Label* reg0_label = Gtk::make_managed<Gtk::Label>("REG0: 0");
+        reg_grid->attach(*reg0_label, 0, 0, 1, 1); // Colocar la etiqueta al inicio en la columna 0
+
+        Gtk::Label* reg1_label = Gtk::make_managed<Gtk::Label>("REG1: 0");
+        reg_grid->attach(*reg1_label, 1, 0, 1, 1); // Colocar cada etiqueta en una columna del sub-grid
+
+        Gtk::Label* reg2_label = Gtk::make_managed<Gtk::Label>("REG2: 0");
+        reg_grid->attach(*reg2_label, 2, 0, 1, 1); // Colocar cada etiqueta en una columna del sub-grid
+
+        Gtk::Label* reg3_label = Gtk::make_managed<Gtk::Label>("REG3: 0");
+        reg_grid->attach(*reg3_label, 3, 0, 1, 1); // Colocar cada etiqueta en una columna del sub-grid
+
+
+        
+        etiquetas_reg.push_back(reg0_label);  
+        etiquetas_reg.push_back(reg1_label);  
+        etiquetas_reg.push_back(reg2_label);  
+        etiquetas_reg.push_back(reg3_label);  
+
+
+        cpu_grid->attach(*reg_grid, 0, 8, 6, 1);
+        
     
 
 
@@ -214,47 +241,42 @@ void MiVentana::create_bus_grid() {
     // Crear un botón y añadirlo al grid interno
     Gtk::Button* button = Gtk::make_managed<Gtk::Button>("Prueba 1");
     // Usar una lambda para pasar los argumentos directamente al hacer clic
-    button->signal_clicked().connect([this]() {actualizar_label(4, 3,  "M", "0x10", "2");});
+    button->signal_clicked().connect([this]() {
+        actualizar_cache(4, 3,  "M", "0x10", "2");
+        actualizar_reg(1, 3, 5);
+        });
     grid->attach(*button, 0, 1, 1, 1); // Colocamos el botón en la posición (0, 1)
 
     // Crear un botón y añadirlo al grid interno
     Gtk::Button* button1 = Gtk::make_managed<Gtk::Button>("Prueba 2");
     // Usar una lambda para pasar los argumentos directamente al hacer clic
-    button1->signal_clicked().connect([this]() {actualizar_label(4, 4,  "O", "0x45", "5");});
+    button1->signal_clicked().connect([this]() {actualizar_cache(4, 4,  "O", "0x45", "5");});
     grid->attach(*button1, 1, 1, 1, 1); // Colocamos el botón en la posición (0, 1)
 
     // Crear un botón y añadirlo al grid interno
     Gtk::Button* button3 = Gtk::make_managed<Gtk::Button>("Prueba 3");
     // Usar una lambda para pasar los argumentos directamente al hacer clic
-    button3->signal_clicked().connect([this]() {actualizar_label(2, 8,  "E", "0xBA", "123");});
+    button3->signal_clicked().connect([this]() {actualizar_cache(2, 8,  "E", "0xBA", "123");});
     grid->attach(*button3, 2, 1, 1, 1); // Colocamos el botón en la posición (0, 1)
 
     // Crear un botón y añadirlo al grid interno
     Gtk::Button* button4 = Gtk::make_managed<Gtk::Button>("Prueba 4");
     // Usar una lambda para pasar los argumentos directamente al hacer clic
-    button4->signal_clicked().connect([this]() {actualizar_label(1, 2,  "S", "0x03", "7");});
+    button4->signal_clicked().connect([this]() {actualizar_cache(1, 2,  "S", "0x03", "7");});
     grid->attach(*button4, 0, 2, 1, 1); // Colocamos el botón en la posición (0, 1)
 
 
     // Crear un botón y añadirlo al grid interno
     Gtk::Button* button5 = Gtk::make_managed<Gtk::Button>("Prueba 5");
     // Usar una lambda para pasar los argumentos directamente al hacer clic
-    button5->signal_clicked().connect([this]() {actualizar_label(1, 1,  "I", "0x99", "33");});
+    button5->signal_clicked().connect([this]() {actualizar_cache(1, 1,  "I", "0x99", "33");});
     grid->attach(*button5, 1, 2, 1, 1); // Colocamos el botón en la posición (0, 1)
 
         // Crear un botón y añadirlo al grid interno
     Gtk::Button* button6 = Gtk::make_managed<Gtk::Button>("Prueba 6");
     // Usar una lambda para pasar los argumentos directamente al hacer clic
-    button6->signal_clicked().connect([this]() {actualizar_label(1, 1,  "I", "0x6E", "42");});
+    button6->signal_clicked().connect([this]() {actualizar_cache(1, 1,  "I", "0x6E", "42");});
     grid->attach(*button6, 2, 2, 1, 1); // Colocamos el botón en la posición (0, 1)
-
-
-
-
-
-
-
-
 
     // Agregar el grid interno a la posición (col, row) en el grid principal
     grid_mem.attach(*grid, 0, 2, 3, 1);
@@ -288,6 +310,47 @@ void MiVentana::create_mem_grid() {
     // Agregar el grid interno a la posición (j, i) en el grid principal
     grid_mem.attach(*mem_grid, 4, 0, 1, 5);
 }
+
+
+// Función externa para modificar el texto de una etiqueta específica
+void MiVentana::actualizar_cache(int cpu, int cache, const std::string& mesi_text, const std::string& addr_text, const std::string& data_text) {
+    // Comprobar si cpu es menor a 4 y cache es menor a 9
+    if (cpu < 5 && cache < 9) {
+        // Verificar que el índice de cache está dentro del rango válido
+        if (cache < etiquetas_cache.size()) {
+            // Obtener las etiquetas correspondientes para esta cache
+            EtiquetasCache& etiqueta = etiquetas_cache[(cpu-1)*8 + (cache-1)];
+
+            // Actualizar las etiquetas de mesi, addr y data
+            etiqueta.mesi_label->set_text(mesi_text);
+            etiqueta.addr_label->set_text(addr_text);
+            etiqueta.data_label->set_text(data_text);
+        }
+    } else {
+        // Si cpu >= 4 o cache >= 9, no se hace nada o se puede manejar de otra forma
+        std::cout << "Error: CPU debe ser menor que 4 y Cache debe ser menor que 9." << std::endl;
+    }
+}
+
+// Función externa para modificar el texto de una etiqueta específica
+void MiVentana::actualizar_reg(int cpu, int reg, int data) {
+    // Comprobar si cpu es menor a 4 y cache es menor a 9
+    if (cpu < 5 && reg < 4) {
+        // Verificar que el índice de cache está dentro del rango válido
+        if (reg < etiquetas_reg.size()) {
+            // Obtener el puntero a la etiqueta correspondiente
+            Gtk::Label* etiqueta = etiquetas_reg[(cpu-1)*3 + reg];
+            
+            // Actualizar el texto de la etiqueta
+            etiqueta->set_text("REG" + std::to_string(reg) + ": " + std::to_string(data));
+        }
+    } else {
+        // Si cpu >= 4 o cache >= 9, no se hace nada o se puede manejar de otra forma
+        std::cout << "Error: CPU debe ser menor que 4 y Cache debe ser menor que 9." << std::endl;
+    }
+}
+
+
 
 // Manejador de la señal clicked del botón
 void MiVentana::on_button_clicked(const std::string& label_text, 
@@ -331,22 +394,18 @@ void MiVentana::on_button_clicked(const std::string& label_text,
 }
 
 
-// Función externa para modificar el texto de una etiqueta específica
-void MiVentana::actualizar_label(int cpu, int cache, const std::string& mesi_text, const std::string& addr_text, const std::string& data_text) {
-    // Comprobar si cpu es menor a 4 y cache es menor a 9
-    if (cpu < 5 && cache < 9) {
-        // Verificar que el índice de cache está dentro del rango válido
-        if (cache < etiquetas_cache.size()) {
-            // Obtener las etiquetas correspondientes para esta cache
-            EtiquetasCache& etiqueta = etiquetas_cache[(cpu-1)*8 + (cache-1)];
+void MiVentana::gestion_LOAD(int cpu, const std::string& addr_text, const std::string& data_text){
+    
+}
 
-            // Actualizar las etiquetas de mesi, addr y data
-            etiqueta.mesi_label->set_text(mesi_text);
-            etiqueta.addr_label->set_text(addr_text);
-            etiqueta.data_label->set_text(data_text);
-        }
-    } else {
-        // Si cpu >= 4 o cache >= 9, no se hace nada o se puede manejar de otra forma
-        std::cout << "Error: CPU debe ser menor que 4 y Cache debe ser menor que 9." << std::endl;
-    }
+void MiVentana::gestion_STORE(int cpu, const std::string& addr_text, const std::string& data_text){
+    
+}
+
+void MiVentana::gestion_DEC(int cpu, int reg, int data){
+
+}
+
+void MiVentana::gestion_INC(int cpu, int reg, int data){ 
+    
 }
