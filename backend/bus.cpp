@@ -124,6 +124,7 @@ void bus::write_request_moesi(uint64_t address, uint64_t data, uint64_t cache_in
                 for (int block = 0; block < 8; ++block) {
                     if (connected_caches[i]->addresses[block] == address) {
                         connected_caches[i]->moesi_state[block] = "I";
+                        connected_caches[i]->invalidations++;
                         
                         //connected_caches[i]->moesi_state[block] = "S";
                         //connected_caches[i]->data[block] = data;
@@ -238,7 +239,7 @@ void bus::write_request_mesi(uint64_t address, uint64_t data, uint64_t cache_ind
                 for (int block = 0; block < 8; ++block) {
                     if (connected_caches[i]->addresses[block] == address) {
                         connected_caches[i]->moesi_state[block] = "I";
-                        
+                        connected_caches[i]->invalidations++;
                         //connected_caches[i]->moesi_state[block] = "S";
                         //connected_caches[i]->data[block] = data;
                     }
