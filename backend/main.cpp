@@ -2,8 +2,18 @@
 #include "core.h"
 #include "ram.h"
 #include <thread>
+#include "gui.h"
 
-int main() {
+int main(int argc, char *argv[]) {
+
+    auto app = Gtk::Application::create(argc, argv, "org.gtkmm.ejemplo");
+
+    MiVentana ventana;
+
+    long datos[256] = {0}; // Llena el array con los datos que desees
+    
+    app->run(ventana);
+
     bool moesi_protocol = false;
 
     RAM ram;
