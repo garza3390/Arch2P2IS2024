@@ -8,6 +8,7 @@
 #include "cache.h"
 #include "ram.h"
 #include "core.h"
+#include "gui.h"
 
 
 // Bus del sistema
@@ -15,6 +16,8 @@ struct bus {
     std::array<uint64_t, 256> address_port;  // Puerto de direcciones (conectado a RAM y cache de cada core)
     std::array<uint64_t, 256> data_port;     // Puerto de datos (conectado a RAM y cache de cada core)
     std::vector<cache*> connected_caches;   // Puerto compartido para estados MOESI entre caches de los cores
+
+    std::vector<core*> cores;   // Puerto compartido para estados MOESI entre caches de los cores
     
     RAM ram;
 
@@ -24,8 +27,10 @@ struct bus {
     int invalidations = 0;
     uint64_t data_transmitted = 0;
 
+    MiVentana* ventana; // Agrega un puntero a MiVentana
+
     // Constructor
-    bus(core& core0, core& core1, core& core2, core& core3, RAM& ram);
+    bus(core& core0, core& core1, core& core2, core& core3, RAM& ram, MiVentana* ventana);
 
     void update_cache();
 

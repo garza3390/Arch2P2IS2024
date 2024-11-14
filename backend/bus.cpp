@@ -2,8 +2,8 @@
 #include <iostream>
 
 // Constructor del bus
-bus::bus(core& core0, core& core1, core& core2, core& core3, RAM& ram)
-    : address_port{0}, data_port{0}, ram(ram) {
+bus::bus(core& core0, core& core1, core& core2, core& core3, RAM& ram, MiVentana* ventana)
+    : address_port{0}, data_port{0}, ram(ram), ventana(ventana){
     
     connected_caches.resize(4);
     connected_caches[0] = &core0.core_cache;
@@ -11,18 +11,49 @@ bus::bus(core& core0, core& core1, core& core2, core& core3, RAM& ram)
     connected_caches[2] = &core2.core_cache;
     connected_caches[3] = &core3.core_cache;
 
+    cores.resize(4);
+    cores[0] = &core0;
+    cores[1] = &core1;
+    cores[2] = &core2;
+    cores[3] = &core3;
+
     read_requests = 0;
     write_requests = 0;
     invalidations = 0;
     data_transmitted = 0;
+
+    
 }
 
 void bus::update_cache() {
     
+    // Imprimir estados para verificar el cumplimiento del protocolo
+    connected_caches[0]->print_cache_state("Core 0");
+    //core1.core_cache.print_cache_state("Core 1");
+    //core2.core_cache.print_cache_state("Core 2");
+    //core3.core_cache.print_cache_state("Core 3");
+    std::cout << "actualizando" << std::endl;
+
+    for (int j = 0; j < 4; ++j) {
+        for (int i = 0; i < 8; ++i) {
+        ventana->actualizar_cache(j+1, i+1, 
+                                connected_caches[j]->moesi_state[i], 
+                                std::to_string(connected_caches[j]->addresses[i]), 
+                                std::to_string(connected_caches[j]->data[i]));
+        }
+    }
+    for (int j = 0; j < 4; ++j) {
+        for (int i = 0; i < 4; ++i) {
+        ventana->actualizar_reg(j+1, i, cores[j]->registers[i]);
+        }
+    }
 }
 
 // Función para manejar una solicitud de lectura en el bus
 uint64_t bus::read_request_moesi(uint64_t address, uint64_t cache_index, uint64_t cache_block) {
+
+    
+    
     read_requests++;
     uint64_t data = 0;
     
@@ -35,6 +66,7 @@ uint64_t bus::read_request_moesi(uint64_t address, uint64_t cache_index, uint64_
 
         //update_moesi_state(address, data, cache_index, cache_block);
         std::cout << "Bus: Lectura completada desde la caché local en la dirección " << address << " con el dato " << data << std::endl;
+        update_cache();
     } else {
         
         // Si la caché local está en estado "I", buscar en las otras cachés
@@ -79,6 +111,8 @@ uint64_t bus::read_request_moesi(uint64_t address, uint64_t cache_index, uint64_
                             //std::cout << connected_caches[cache_index].moesi_state[cache_block] << "\n";
 
                             std::cout << "Bus: Lectura completada desde caché " << i << " en la dirección " << address << " con el dato " << data << std::endl;
+
+                            update_cache();
                             found = true;
                             break;
                         }
@@ -97,7 +131,11 @@ uint64_t bus::read_request_moesi(uint64_t address, uint64_t cache_index, uint64_
             connected_caches[cache_index]->addresses[cache_block] = address;
             connected_caches[cache_index]->moesi_state[cache_block] = "E";
             std::cout << "Bus: Lectura completada desde RAM en la dirección " << address << " con el dato " << data << std::endl;
+            update_cache();
         }
+
+
+
     }
     
     return data;
@@ -105,6 +143,8 @@ uint64_t bus::read_request_moesi(uint64_t address, uint64_t cache_index, uint64_
 
 // Función para manejar una solicitud de escritura en el bus
 void bus::write_request_moesi(uint64_t address, uint64_t data, uint64_t cache_index, uint64_t cache_block) {
+
+    
     if (connected_caches[cache_index]->moesi_state[cache_block] == "S") {
         connected_caches[cache_index]->moesi_state[cache_block] = "M";  
     }
@@ -132,11 +172,15 @@ void bus::write_request_moesi(uint64_t address, uint64_t data, uint64_t cache_in
             }
         }
     std::cout << "Bus: Escritura completada en la cache " << cache_index << " en el bloque " << cache_block << " con el dato " << data << std::endl;
+    update_cache();
 }
 
 
 // Función para manejar una solicitud de lectura en el bus
 uint64_t bus::read_request_mesi(uint64_t address, uint64_t cache_index, uint64_t cache_block) {
+    
+
+
     read_requests++;
     uint64_t data = 0;
     
@@ -149,6 +193,7 @@ uint64_t bus::read_request_mesi(uint64_t address, uint64_t cache_index, uint64_t
 
         //update_moesi_state(address, data, cache_index, cache_block);
         std::cout << "Bus: Lectura completada desde la caché local en la dirección " << address << " con el dato " << data << std::endl;
+        update_cache();
     } else {
         
         // Si la caché local está en estado "I", buscar en las otras cachés
@@ -193,6 +238,7 @@ uint64_t bus::read_request_mesi(uint64_t address, uint64_t cache_index, uint64_t
                             //std::cout << connected_caches[cache_index].moesi_state[cache_block] << "\n";
 
                             std::cout << "Bus: Lectura completada desde caché " << i << " en la dirección " << address << " con el dato " << data << std::endl;
+                            update_cache();
                             found = true;
                             break;
                         }
@@ -211,6 +257,7 @@ uint64_t bus::read_request_mesi(uint64_t address, uint64_t cache_index, uint64_t
             connected_caches[cache_index]->addresses[cache_block] = address;
             connected_caches[cache_index]->moesi_state[cache_block] = "E";
             std::cout << "Bus: Lectura completada desde RAM en la dirección " << address << " con el dato " << data << std::endl;
+            update_cache();
         }
     }
     
@@ -246,6 +293,7 @@ void bus::write_request_mesi(uint64_t address, uint64_t data, uint64_t cache_ind
             }
         }
     std::cout << "Bus: Escritura completada en la cache " << cache_index << " en el bloque " << cache_block << " con el dato " << data << std::endl;
+    update_cache();
 }
 
 

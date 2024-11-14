@@ -314,6 +314,7 @@ void MiVentana::create_mem_grid() {
 
 // Función externa para modificar el texto de una etiqueta específica
 void MiVentana::actualizar_cache(int cpu, int cache, const std::string& mesi_text, const std::string& addr_text, const std::string& data_text) {
+
     // Comprobar si cpu es menor a 4 y cache es menor a 9
     if (cpu < 5 && cache < 9) {
         // Verificar que el índice de cache está dentro del rango válido
@@ -321,9 +322,14 @@ void MiVentana::actualizar_cache(int cpu, int cache, const std::string& mesi_tex
             // Obtener las etiquetas correspondientes para esta cache
             EtiquetasCache& etiqueta = etiquetas_cache[(cpu-1)*8 + (cache-1)];
 
+            // Convertir addr_text a entero, luego a hexadecimal
+            int addr_value = std::stoi(addr_text);  // Convertir addr_text a entero
+            std::stringstream addr_hex;
+            addr_hex << std::hex << addr_value;     // Convertir a hexadecimal
+
             // Actualizar las etiquetas de mesi, addr y data
             etiqueta.mesi_label->set_text(mesi_text);
-            etiqueta.addr_label->set_text(addr_text);
+            etiqueta.addr_label->set_text("0x" + addr_hex.str());
             etiqueta.data_label->set_text(data_text);
         }
     } else {
@@ -334,12 +340,14 @@ void MiVentana::actualizar_cache(int cpu, int cache, const std::string& mesi_tex
 
 // Función externa para modificar el texto de una etiqueta específica
 void MiVentana::actualizar_reg(int cpu, int reg, int data) {
+
+    std::cout << "editando reg" << reg << "de core " << cpu << "con dato " << data << std::endl;
     // Comprobar si cpu es menor a 4 y cache es menor a 9
     if (cpu < 5 && reg < 4) {
         // Verificar que el índice de cache está dentro del rango válido
         if (reg < etiquetas_reg.size()) {
             // Obtener el puntero a la etiqueta correspondiente
-            Gtk::Label* etiqueta = etiquetas_reg[(cpu-1)*3 + reg];
+            Gtk::Label* etiqueta = etiquetas_reg[(cpu-1)*4 + reg];
             
             // Actualizar el texto de la etiqueta
             etiqueta->set_text("REG" + std::to_string(reg) + ": " + std::to_string(data));
