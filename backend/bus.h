@@ -22,6 +22,8 @@ struct bus {
     int read_requests = 0;
     int write_requests = 0;
     int invalidations = 0;
+    uint64_t read_responses;
+    uint64_t write_responses;
     uint64_t data_transmitted = 0;
 
     // Constructor
@@ -43,6 +45,9 @@ struct bus {
 
     // Función para imprimir el estado del bus
     void print_bus_state() const;
+
+    // Escribir las metricas en un archivo json
+    void save_metrics_to_json() const;
 };
 
 #endif // BUS_H

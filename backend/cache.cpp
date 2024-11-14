@@ -1,5 +1,7 @@
 #include "cache.h"
 #include "bus.h"
+#include <nlohmann/json.hpp>
+#include <fstream>
 
 // Constructor
 cache::cache(uint64_t index, bool moesi_protocol) {
@@ -9,6 +11,7 @@ cache::cache(uint64_t index, bool moesi_protocol) {
     addresses.fill(0);               // Inicializa las direcciones con 0
     moesi_state.fill("I");           // Inicializa el estado MOESI como "I" (Invalid)
     bus_access_enabled = true;       // Habilita el acceso al bus
+    cache_hits = 0;
     cache_misses = 0;                // Inicializa los fallos de cache en 0
     invalidations = 0;               // Inicializa las invalidaciones en 0
 }
@@ -17,6 +20,7 @@ uint64_t cache::read(int block, uint64_t addr,  bus& bus) {
 
     if (moesi_state[block] == "I") {  // Si el bloque está en estado inválido
         cache_misses++;
+        invalidations++;
         uint64_t data_m = 0;
         //uint64_t data_m = bus.read_request(addr, index, block);
 
@@ -40,6 +44,7 @@ uint64_t cache::read(int block, uint64_t addr,  bus& bus) {
         return data_m;
     }
     else {
+        cache_hits++;
         return data[block];
     }
 }
@@ -65,5 +70,25 @@ void cache::print_cache_state(const std::string &core_name) {
         std::cout << "Estado MOESI " << moesi_state[i] << "\n";
         std::cout << "Direccion RAM " << addresses[i] << "\n";
         std::cout << "Dato " << data[i] << "\n";
+    }
+}
+
+
+void cache::save_metrics_to_json(const std::string& core_name) const {
+    nlohmann::json metrics;
+
+    // Almacena las métricas en la estructura JSON
+    metrics["cache_hits"] = cache_hits;
+    metrics["cache_misses"] = cache_misses;
+    metrics["invalidations"] = invalidations;
+
+    // Guarda las métricas en un archivo JSON
+    std::ofstream file(core_name + "_cache_metrics.json");
+    if (file.is_open()) {
+        file << metrics.dump(4);  // Formato con indentación de 4 espacios
+        file.close();
+        std::cout << "Métricas guardadas en " << core_name << "_cache_metrics.json" << std::endl;
+    } else {
+        std::cerr << "Error al abrir el archivo para guardar las métricas" << std::endl;
     }
 }

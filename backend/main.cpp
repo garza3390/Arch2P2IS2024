@@ -32,5 +32,11 @@ int main() {
     core2.core_cache.print_cache_state("Core 2");
     core3.core_cache.print_cache_state("Core 3");
 
+    core0.core_cache.save_metrics_to_json("Core_0");
+    core1.core_cache.save_metrics_to_json("Core_1");
+    core2.core_cache.save_metrics_to_json("Core_2");
+    core3.core_cache.save_metrics_to_json("Core_3");
+    bus.save_metrics_to_json();
+
     return 0;
 }

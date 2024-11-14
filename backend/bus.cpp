@@ -1,5 +1,11 @@
 #include "bus.h"
 #include <iostream>
+#include <nlohmann/json.hpp>
+#include <fstream>
+
+// instalar el paquete nlohmann con el comando
+// comando: sudo apt-get install nlohmann-json3-dev
+
 
 // Constructor del bus
 bus::bus(core& core0, core& core1, core& core2, core& core3, RAM& ram)
@@ -15,6 +21,9 @@ bus::bus(core& core0, core& core1, core& core2, core& core3, RAM& ram)
     write_requests = 0;
     invalidations = 0;
     data_transmitted = 0;
+    read_responses = 0;
+    write_responses = 0;
+
 }
 
 void bus::update_cache() {
@@ -259,4 +268,27 @@ void bus::print_bus_state() const {
     std::cout << "Write Requests: " << write_requests << "\n";
     std::cout << "Invalidations: " << invalidations << "\n";
     std::cout << "Data Transmitted: " << data_transmitted << " bytes\n";
+}
+
+
+void bus::save_metrics_to_json() const {
+    nlohmann::json metrics;
+
+    // Almacena las métricas en la estructura JSON
+    metrics["read_requests"] = read_requests;
+    metrics["write_requests"] = write_requests;
+    metrics["invalidations"] = invalidations;
+    metrics["data_transmitted"] = data_transmitted;
+    metrics["read_responses"] = read_responses;
+    metrics["write_responses"] = write_responses;
+
+    // Guarda las métricas en un archivo JSON
+    std::ofstream file("bus_metrics.json");
+    if (file.is_open()) {
+        file << metrics.dump(4);  // Formato con indentación de 4 espacios
+        file.close();
+        std::cout << "Métricas guardadas en bus_metrics.json" << std::endl;
+    } else {
+        std::cerr << "Error al abrir el archivo para guardar las métricas" << std::endl;
+    }
 }

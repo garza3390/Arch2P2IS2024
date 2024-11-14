@@ -6,6 +6,7 @@
 #include "cache.h"
 #include <mutex>
 #include "instructions_memory.h"
+#include <cstdint>
 
 struct bus;
 
