@@ -271,24 +271,74 @@ void bus::print_bus_state() const {
 }
 
 
-void bus::save_metrics_to_json() const {
-    nlohmann::json metrics;
+void bus::save_metrics_to_json(const std::vector<core*>& cores) const {
+    
+    std::lock_guard<std::mutex> lock(metrics_mutex);  // Protege la sección crítica
+    nlohmann::json metrics_json;
 
-    // Almacena las métricas en la estructura JSON
-    metrics["read_requests"] = read_requests;
-    metrics["write_requests"] = write_requests;
-    metrics["invalidations"] = invalidations;
-    metrics["data_transmitted"] = data_transmitted;
-    metrics["read_responses"] = read_responses;
-    metrics["write_responses"] = write_responses;
+    // Almacena las métricas del bus en la estructura JSON
+    metrics_json["summary"]["read_requests"] = read_requests;
+    metrics_json["summary"]["write_requests"] = write_requests;
+    metrics_json["summary"]["invalidations"] = invalidations;
+    metrics_json["summary"]["data_transmitted"] = data_transmitted;
+    metrics_json["summary"]["read_responses"] = read_responses;
+    metrics_json["summary"]["write_responses"] = write_responses;
+
+    // Variables para almacenar los totales de cache hits, misses e invalidaciones de los cores
+    uint64_t total_cache_hits = 0;
+    uint64_t total_cache_misses = 0;
+    uint64_t total_invalidations = 0;
+
+    // Suma de las estadísticas de los cores
+    for (const auto& core_ptr : cores) {
+        total_cache_hits += core_ptr->core_cache.cache_hits;
+        total_cache_misses += core_ptr->core_cache.cache_misses;
+        total_invalidations += core_ptr->core_cache.invalidations;
+    }
+
+    // Agrega los totales de los cores al archivo JSON
+    metrics_json["cores_total"]["total_cache_hits"] = total_cache_hits;
+    metrics_json["cores_total"]["total_cache_misses"] = total_cache_misses;
+    metrics_json["cores_total"]["total_invalidations"] = total_invalidations;
+
+    // Registro de métricas por intervalo de tiempo
+    nlohmann::json log_json = nlohmann::json::array();
+    for (const auto& snapshot : metrics_log) {
+        nlohmann::json snapshot_json;
+        snapshot_json["time_elapsed"] = snapshot.time_elapsed;
+        snapshot_json["read_requests"] = snapshot.read_requests;
+        snapshot_json["write_requests"] = snapshot.write_requests;
+        snapshot_json["invalidations"] = snapshot.invalidations;
+        snapshot_json["data_transmitted"] = snapshot.data_transmitted;
+        snapshot_json["read_responses"] = snapshot.read_responses;
+        snapshot_json["write_responses"] = snapshot.write_responses;
+        log_json.push_back(snapshot_json);
+    }
+    metrics_json["metrics_over_time"] = log_json;
 
     // Guarda las métricas en un archivo JSON
     std::ofstream file("bus_metrics.json");
     if (file.is_open()) {
-        file << metrics.dump(4);  // Formato con indentación de 4 espacios
+        file << metrics_json.dump(4);  // Formato con indentación de 4 espacios
         file.close();
         std::cout << "Métricas guardadas en bus_metrics.json" << std::endl;
     } else {
         std::cerr << "Error al abrir el archivo para guardar las métricas" << std::endl;
     }
+}
+
+
+void bus::update_metrics_snapshot(float time_elapsed) {
+    std::lock_guard<std::mutex> lock(metrics_mutex);  // Protege la sección crítica
+
+    MetricsSnapshot snapshot;
+    snapshot.time_elapsed = time_elapsed;
+    snapshot.read_requests = read_requests;
+    snapshot.write_requests = write_requests;
+    snapshot.invalidations = invalidations;
+    snapshot.data_transmitted = data_transmitted;
+    snapshot.read_responses = read_responses;
+    snapshot.write_responses = write_responses;
+
+    metrics_log.push_back(snapshot);
 }

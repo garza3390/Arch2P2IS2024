@@ -16,7 +16,7 @@ struct cache {
     std::array<std::string, 8> moesi_state;   // Estados MOESI por bloque
     bool bus_access_enabled = true;           // Acceso habilitado al bus
     bool moesi_protocol = true;
-    uint64_t cache_hits;
+    int cache_hits = 0;
     int cache_misses = 0;
     int invalidations = 0;
 

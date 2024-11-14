@@ -1,0 +1,26 @@
+{
+    "cores_total": {
+        "total_cache_hits": 0,
+        "total_cache_misses": 3,
+        "total_invalidations": 1
+    },
+    "metrics_over_time": [
+        {
+            "data_transmitted": 208,
+            "invalidations": 0,
+            "read_requests": 6,
+            "read_responses": 0,
+            "time_elapsed": 0.10060226917266846,
+            "write_requests": 2,
+            "write_responses": 0
+        }
+    ],
+    "summary": {
+        "data_transmitted": 208,
+        "invalidations": 0,
+        "read_requests": 6,
+        "read_responses": 0,
+        "write_requests": 2,
+        "write_responses": 0
+    }
+}

@@ -16,38 +16,40 @@ cache::cache(uint64_t index, bool moesi_protocol) {
     invalidations = 0;               // Inicializa las invalidaciones en 0
 }
 
-uint64_t cache::read(int block, uint64_t addr,  bus& bus) {
+uint64_t cache::read(int block, uint64_t addr, bus& bus) {
+    std::cout << "Entrando en cache::read" << std::endl;
+    std::cout << "Block: " << block << ", Address: " << addr << std::endl;
 
     if (moesi_state[block] == "I") {  // Si el bloque está en estado inválido
+        std::cout << "Estado del bloque es 'I', aumentando cache_misses" << std::endl;
         cache_misses++;
-        invalidations++;
-        uint64_t data_m = 0;
-        //uint64_t data_m = bus.read_request(addr, index, block);
 
-        if(this->moesi_protocol == false){
+        uint64_t data_m = 0;
+        if (this->moesi_protocol == false) {
             data_m = bus.read_request_mesi(addr, index, block);
-        }
-        else{
+        } else {
             data_m = bus.read_request_moesi(addr, index, block);
         }
 
+        std::cout << "Datos leídos de la memoria o bus: " << data_m << std::endl;
         addresses[block] = addr;
         data[block] = data_m;  // Carga el dato desde la memoria
+
+        // Verificar que el estado de MOESI sea válido
+        std::cout << "Actualizando estado MOESI" << std::endl;
         moesi_state[block] = bus.connected_caches[index]->moesi_state[block];
 
-        //moesi_state[0] = bus.connected_caches[0].moesi_state[0];
-        //std::cout << "Cache 0 bloque 0 - " <<  bus.connected_caches[0].moesi_state[0] << "\n";
-        
         bus.read_requests++;
         bus.data_transmitted += 64;  // Se transmiten 64 bits
 
+        std::cout << "Saliendo de cache::read con data: " << data_m << std::endl;
         return data_m;
-    }
-    else {
-        cache_hits++;
+    } else {
+        std::cout << "Bloque no está en estado 'I', devolviendo data[block]" << std::endl;
         return data[block];
     }
 }
+
 
 
 
@@ -78,6 +80,7 @@ void cache::save_metrics_to_json(const std::string& core_name) const {
     nlohmann::json metrics;
 
     // Almacena las métricas en la estructura JSON
+    metrics["core ID"] = core_name;
     metrics["cache_hits"] = cache_hits;
     metrics["cache_misses"] = cache_misses;
     metrics["invalidations"] = invalidations;
