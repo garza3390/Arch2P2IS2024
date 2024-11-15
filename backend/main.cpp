@@ -2,9 +2,16 @@
 #include "core.h"
 #include "ram.h"
 #include <thread>
+#include <atomic>
+#include <chrono>
 
 int main() {
-    bool moesi_protocol = false;
+
+    std::atomic<bool> clock(false); 
+    bool stepper = false;
+    bool step = false;
+
+    bool moesi_protocol = true;
 
     RAM ram;
     core core0(0, moesi_protocol); 
@@ -15,16 +22,32 @@ int main() {
     bus.start_time = std::chrono::steady_clock::now();
 
     std::vector<core*> cores = {&core0, &core1, &core2, &core3};
-    
-    // Crear hilos para ejecutar el método start en cada core
+
+    // Crear un hilo para manejar el reloj (clock)
+    bool running = true;  // Para detener el hilo del reloj al final
+    std::thread clock_thread([&]() {
+        while (running) {
+            if(stepper){
+                clock = step;
+            }
+            else{
+                clock = true;  // Semiciclo positivo
+                std::this_thread::sleep_for(std::chrono::seconds(2));
+                clock = false; // Semiciclo negativo
+                std::this_thread::sleep_for(std::chrono::seconds(2));
+            }
+            
+        }
+    });
+
+    // Crear hilos para ejecutar el método start en cada núcleo
     std::vector<std::thread> threads;
-    threads.emplace_back(&core::start, &core0, std::ref(bus));
-    threads.emplace_back(&core::start, &core1, std::ref(bus));
-    threads.emplace_back(&core::start, &core2, std::ref(bus));
-    threads.emplace_back(&core::start, &core3, std::ref(bus));
+    threads.emplace_back(&core::start, &core0, std::ref(bus), std::ref(clock));
+    threads.emplace_back(&core::start, &core1, std::ref(bus), std::ref(clock));
+    threads.emplace_back(&core::start, &core2, std::ref(bus), std::ref(clock));
+    threads.emplace_back(&core::start, &core3, std::ref(bus), std::ref(clock));
 
-
-    bool running = true;
+    
     std::thread metrics_thread([&]() {
         while (running) {
             std::this_thread::sleep_for(std::chrono::milliseconds(100));  // Captura de métricas cada 100 ms para mayor granularidad
@@ -43,6 +66,7 @@ int main() {
 
     running = false;
     metrics_thread.join();
+    clock_thread.join(); 
 
     // Imprimir estados para verificar el cumplimiento del protocolo
     core0.core_cache.print_cache_state("Core 0");

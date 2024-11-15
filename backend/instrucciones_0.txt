@@ -1,1 +1,6 @@
 LOAD 1 0 10
+INC 1
+STORE 0 0 3 30
+LOAD 0 1 10
+loop_start
+DEC 0

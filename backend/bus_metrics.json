@@ -1,26 +1,16 @@
 {
     "cores_total": {
         "total_cache_hits": 0,
-        "total_cache_misses": 3,
-        "total_invalidations": 1
+        "total_cache_misses": 8,
+        "total_invalidations": 0
     },
-    "metrics_over_time": [
-        {
-            "data_transmitted": 208,
-            "invalidations": 0,
-            "read_requests": 6,
-            "read_responses": 0,
-            "time_elapsed": 0.10060226917266846,
-            "write_requests": 2,
-            "write_responses": 0
-        }
-    ],
+    "metrics_over_time": [],
     "summary": {
-        "data_transmitted": 208,
+        "data_transmitted": 544,
         "invalidations": 0,
-        "read_requests": 6,
+        "read_requests": 16,
         "read_responses": 0,
-        "write_requests": 2,
+        "write_requests": 4,
         "write_responses": 0
     }
 }

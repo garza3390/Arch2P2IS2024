@@ -17,7 +17,7 @@ cache::cache(uint64_t index, bool moesi_protocol) {
 }
 
 uint64_t cache::read(int block, uint64_t addr, bus& bus) {
-    std::cout << "Entrando en cache::read" << std::endl;
+    std::cout << "\nEntrando en cache::read" << std::endl;
     std::cout << "Block: " << block << ", Address: " << addr << std::endl;
 
     if (moesi_state[block] == "I") {  // Si el bloque está en estado inválido

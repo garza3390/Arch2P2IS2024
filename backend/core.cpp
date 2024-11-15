@@ -1,6 +1,8 @@
 #include "core.h"
 #include "bus.h"
 #include <iostream>
+#include <thread>
+#include <atomic>
 
 // Función para cargar datos desde RAM a un registro
 uint64_t core::load(int block, uint64_t addr, bus& bus) {
@@ -38,29 +40,34 @@ int core::jnz(int reg, const std::string& label, int current_line) {
 }
 
 // Función que ejecuta las instrucciones
-void core::start(bus& bus) {
+void core::start(bus& bus, std::atomic<bool>& clock) {
     int current_line = 0;
     while (current_line < inst_mem.instructions.size()) {
-        const auto& inst = inst_mem.instructions[current_line];
+        if (clock.load()) {  // Procesar solo en el semiciclo positivo
+            const auto& inst = inst_mem.instructions[current_line];
 
-        if (inst.mnemonic == "LOAD") {
-            uint64_t data = load(inst.block, inst.address, bus);
-            registers[inst.reg] = data;
-            current_line++;
-        } else if (inst.mnemonic == "STORE") {
-            store(inst.block, inst.address, inst.data, bus);
-            current_line++;
-        } else if (inst.mnemonic == "INC") {
-            inc(registers[inst.reg]);
-            current_line++;
-        } else if (inst.mnemonic == "DEC") {
-            dec(registers[inst.reg]);
-            current_line++;
-        } else if (inst.mnemonic == "JNZ") {
-            current_line = jnz(registers[inst.reg], inst.label, current_line);
+            if (inst.mnemonic == "LOAD") {
+                uint64_t data = load(inst.block, inst.address, bus);
+                registers[inst.reg] = data;
+                current_line++;
+            } else if (inst.mnemonic == "STORE") {
+                store(inst.block, inst.address, inst.data, bus);
+                current_line++;
+            } else if (inst.mnemonic == "INC") {
+                inc(inst.reg);
+                current_line++;
+            } else if (inst.mnemonic == "DEC") {
+                dec(inst.reg);
+                current_line++;
+            } else if (inst.mnemonic == "JNZ") {
+                current_line = jnz(inst.reg, inst.label, current_line);
+            } else {
+                std::cout << "Etiqueta: " << inst.mnemonic << std::endl;
+                current_line++;
+            }
         } else {
-            std::cout << "Etiqueta: " << inst.mnemonic << std::endl;
-            current_line++;
+            std::this_thread::yield();  // Ceder tiempo a otros hilos si el reloj está en falso
         }
     }
 }
+
