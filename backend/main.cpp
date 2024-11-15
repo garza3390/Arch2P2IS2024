@@ -7,9 +7,13 @@
 
 int main() {
 
-    std::atomic<bool> clock(false); 
-    bool stepper = false;
-    bool step = false;
+    std::atomic<bool> stepper(false);
+    std::atomic<bool> step(false);
+
+    // Para cambiar el valor de 'stepper'
+    //stepper.store(true);  // Cambia el valor de stepper a 'true'
+    // Para cambiar el valor de 'step'
+    //step.store(true);     // Cambia el valor de step a 'true'
 
     bool moesi_protocol = true;
 
@@ -25,27 +29,14 @@ int main() {
 
     // Crear un hilo para manejar el reloj (clock)
     bool running = true;  // Para detener el hilo del reloj al final
-    std::thread clock_thread([&]() {
-        while (running) {
-            if(stepper){
-                clock = step;
-            }
-            else{
-                clock = true;  // Semiciclo positivo
-                std::this_thread::sleep_for(std::chrono::seconds(2));
-                clock = false; // Semiciclo negativo
-                std::this_thread::sleep_for(std::chrono::seconds(2));
-            }
-            
-        }
-    });
 
     // Crear hilos para ejecutar el método start en cada núcleo
     std::vector<std::thread> threads;
-    threads.emplace_back(&core::start, &core0, std::ref(bus), std::ref(clock));
-    threads.emplace_back(&core::start, &core1, std::ref(bus), std::ref(clock));
-    threads.emplace_back(&core::start, &core2, std::ref(bus), std::ref(clock));
-    threads.emplace_back(&core::start, &core3, std::ref(bus), std::ref(clock));
+    threads.emplace_back(&core::start, &core0, std::ref(bus), std::ref(stepper), std::ref(step));
+    threads.emplace_back(&core::start, &core1, std::ref(bus), std::ref(stepper), std::ref(step));
+    threads.emplace_back(&core::start, &core2, std::ref(bus), std::ref(stepper), std::ref(step));
+    threads.emplace_back(&core::start, &core3, std::ref(bus), std::ref(stepper), std::ref(step));
+
 
     
     std::thread metrics_thread([&]() {
@@ -66,7 +57,7 @@ int main() {
 
     running = false;
     metrics_thread.join();
-    clock_thread.join(); 
+    
 
     // Imprimir estados para verificar el cumplimiento del protocolo
     core0.core_cache.print_cache_state("Core 0");

@@ -38,7 +38,7 @@ struct core {
     int jnz(int reg, const std::string& label, int current_line);
 
     // Función que ejecuta las instrucciones
-    void start(bus& bus,  std::atomic<bool>& clock);
+    void start(bus& bus,  std::atomic<bool>& stepper, std::atomic<bool>& step);
 };
 
 #endif  // CORE_H
