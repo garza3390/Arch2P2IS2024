@@ -13,6 +13,7 @@ JNZ 1, loop_start       ; Si el valor en el registro 1 del cpu no es cero, salta
 ; Etiqueta
 ; Decrementar en uno lo que hay en el registro 3
 ; Salta si lo que hay en el registro 3 no es cero
+; El loop debe hacer 3 iteraciones
 
 LOAD 1 2
 INC 1

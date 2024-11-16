@@ -19,7 +19,7 @@ uint64_t RAM::read(uint64_t address) {
 // Escribe en una dirección de memoria y actualiza el bus
 void RAM::write(uint64_t address, uint64_t data) {
     if (address < memory.size()) {
-        memory[address] = data;  // Almacena el dato en la dirección especificada
+        memory[address] = data;
     } else {
         std::cerr << "Error: Dirección fuera de los límites de la RAM." << std::endl;
     }

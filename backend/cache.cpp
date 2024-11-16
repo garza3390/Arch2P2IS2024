@@ -51,17 +51,17 @@ uint64_t cache::read(int block, uint64_t addr, bus& bus) {
     std::cout << std::endl;
 }
 
-
-
-
 void cache::write(int block, uint64_t addr, uint64_t data, bus& bus) {
-    //bus.write_request(addr, data, index, block);
+    std::cout << "\nEntrando en cache::write" << std::endl;
+    std::cout << "Block: " << block << ", Address: " << addr << ", Data: " << data << std::endl;
     if(this->moesi_protocol == false){
             bus.write_request_mesi(addr, data, index, block);
         }
     else{
             bus.write_request_moesi(addr, data, index, block);
     }
+    std::cout << "Saliendo de cache::write" << std::endl;
+    std::cout << std::endl;
 }
 
 // Imprimir el estado de cada bloque en la cache

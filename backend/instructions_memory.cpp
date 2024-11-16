@@ -54,5 +54,5 @@ int instruction_memory::find_label_line(std::string label) {
             return i;
         }
     }
-    return -1;  // Devuelve -1 si no se encuentra la etiqueta
+    return -1;  // -1 si no se encuentra la etiqueta
 }

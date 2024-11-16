@@ -43,7 +43,7 @@ uint64_t core::getCacheBlock(uint64_t ramAddress) {
     // Validación de rango
     if (ramAddress < 0 || ramAddress > 255) {
         std::cerr << "La dirección de RAM debe estar entre 0 y 255.\n";
-        return -1; // Retorna -1 para indicar un error
+        return -1; // -1 para indicar un error
     }
     
     // Correspondencia directa usando módulo 8
@@ -64,7 +64,6 @@ void core::start(bus& bus, std::atomic<bool>& stepper, std::atomic<bool>& step) 
         }      
     
         const auto& inst = inst_mem.instructions[current_line];
-        
 
         if (inst.mnemonic == "LOAD") {
             uint64_t cache_block = getCacheBlock(inst.regB);
