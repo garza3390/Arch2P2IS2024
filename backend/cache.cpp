@@ -48,6 +48,7 @@ uint64_t cache::read(int block, uint64_t addr, bus& bus) {
         std::cout << "Bloque no está en estado 'I', devolviendo data[block]" << std::endl;
         return data[block];
     }
+    std::cout << std::endl;
 }
 
 

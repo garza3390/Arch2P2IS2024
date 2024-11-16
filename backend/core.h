@@ -37,6 +37,9 @@ struct core {
     // Salto condicional si el valor en el registro no es cero
     int jnz(int reg, const std::string& label, int current_line);
 
+    // Función que calcula el número de bloque de caché
+    uint64_t getCacheBlock(uint64_t ramAddress);
+
     // Función que ejecuta las instrucciones
     void start(bus& bus,  std::atomic<bool>& stepper, std::atomic<bool>& step);
 };

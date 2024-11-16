@@ -39,6 +39,17 @@ int core::jnz(int reg, const std::string& label, int current_line) {
     return current_line + 1;  // Avanza a la siguiente línea si no hay salto
 }
 
+uint64_t core::getCacheBlock(uint64_t ramAddress) {
+    // Validación de rango
+    if (ramAddress < 0 || ramAddress > 255) {
+        std::cerr << "La dirección de RAM debe estar entre 0 y 255.\n";
+        return -1; // Retorna -1 para indicar un error
+    }
+    
+    // Correspondencia directa usando módulo 8
+    return ramAddress % 8;
+}
+
 // Función que ejecuta las instrucciones
 void core::start(bus& bus, std::atomic<bool>& stepper, std::atomic<bool>& step) {
     int current_line = 0;
@@ -53,24 +64,27 @@ void core::start(bus& bus, std::atomic<bool>& stepper, std::atomic<bool>& step) 
         }      
     
         const auto& inst = inst_mem.instructions[current_line];
+        
 
         if (inst.mnemonic == "LOAD") {
-            uint64_t data = load(inst.block, inst.address, bus);
-            registers[inst.reg] = data;
+            uint64_t cache_block = getCacheBlock(inst.regB);
+            uint64_t data = load(cache_block, inst.regB, bus);
+            registers[inst.regA] = data;
             current_line++;
         } else if (inst.mnemonic == "STORE") {
-            store(inst.block, inst.address, inst.data, bus);
+            uint64_t cache_block = getCacheBlock(inst.regB);
+            store(cache_block, inst.regB, inst.regA, bus);
             current_line++;
         } else if (inst.mnemonic == "INC") {
-            inc(inst.reg);
+            inc(inst.regA);
             current_line++;
         } else if (inst.mnemonic == "DEC") {
-            dec(inst.reg);
+            dec(inst.regA);
             current_line++;
         } else if (inst.mnemonic == "JNZ") {
-            current_line = jnz(inst.reg, inst.label, current_line);
+            current_line = jnz(inst.regA, inst.label, current_line);
         } else {
-            std::cout << "Etiqueta: " << inst.mnemonic << std::endl;
+            std::cout << "\nEtiqueta: " << inst.mnemonic << std::endl;
             current_line++;
         }
         

@@ -7,10 +7,11 @@
 
 struct Instruction {
     std::string mnemonic;
-    int block;
-    int reg;
-    uint64_t address;
-    uint64_t data;
+    //int block;
+    uint64_t regA;
+    uint64_t regB;
+    //uint64_t address;
+    //uint64_t data;
     std::string label;
 };
 
