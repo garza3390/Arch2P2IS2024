@@ -1,0 +1,1637 @@
+{
+    "cores_total": {
+        "total_cache_hits": 0,
+        "total_cache_misses": 4,
+        "total_invalidations": 0
+    },
+    "metrics_over_time": [
+        {
+            "data_transmitted": 0,
+            "invalidations": 0,
+            "read_requests": 0,
+            "read_responses": 0,
+            "time_elapsed": 0.1005246713757515,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 0,
+            "invalidations": 0,
+            "read_requests": 0,
+            "read_responses": 0,
+            "time_elapsed": 0.20078352093696594,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 0,
+            "invalidations": 0,
+            "read_requests": 0,
+            "read_responses": 0,
+            "time_elapsed": 0.3009594678878784,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 0,
+            "invalidations": 0,
+            "read_requests": 0,
+            "read_responses": 0,
+            "time_elapsed": 0.401135116815567,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 0,
+            "invalidations": 0,
+            "read_requests": 0,
+            "read_responses": 0,
+            "time_elapsed": 0.5013018846511841,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 0,
+            "invalidations": 0,
+            "read_requests": 0,
+            "read_responses": 0,
+            "time_elapsed": 0.6014782190322876,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 0,
+            "invalidations": 0,
+            "read_requests": 0,
+            "read_responses": 0,
+            "time_elapsed": 0.7015765905380249,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 0,
+            "invalidations": 0,
+            "read_requests": 0,
+            "read_responses": 0,
+            "time_elapsed": 0.8016970753669739,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 0,
+            "invalidations": 0,
+            "read_requests": 0,
+            "read_responses": 0,
+            "time_elapsed": 0.9017952680587769,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 0,
+            "invalidations": 0,
+            "read_requests": 0,
+            "read_responses": 0,
+            "time_elapsed": 1.0018973350524902,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 256,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 1.1019855737686157,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 256,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 1.202151894569397,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 256,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 1.30231773853302,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 256,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 1.4024842977523804,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 256,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 1.5026518106460571,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 256,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 1.6028190851211548,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 256,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 1.7029863595962524,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 256,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 1.8031556606292725,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 256,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 1.9032537937164307,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 256,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 2.003373861312866,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 256,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 2.1034934520721436,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 256,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 2.2036051750183105,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 256,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 2.30373477935791,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 256,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 2.403900623321533,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 256,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 2.5040647983551025,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 256,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 2.604412317276001,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 256,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 2.704542398452759,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 256,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 2.8047003746032715,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 256,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 2.9047977924346924,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 256,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 3.0049636363983154,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 256,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 3.105128526687622,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 256,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 3.2052807807922363,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 256,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 3.305448293685913,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 256,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 3.405623435974121,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 256,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 3.5057907104492188,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 256,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 3.605957269668579,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 256,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 3.706094741821289,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 256,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 3.8062779903411865,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 256,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 3.9063796997070313,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 256,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 4.0064592361450195,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 256,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 4.106624603271484,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 256,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 4.206793308258057,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 256,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 4.30695915222168,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 256,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 4.407148361206055,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 256,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 4.507253646850586,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 256,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 4.607372283935547,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 256,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 4.707474231719971,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 256,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 4.807591915130615,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 256,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 4.907722473144531,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 256,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 5.007820129394531,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 256,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 5.107944965362549,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 256,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 5.208108901977539,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 256,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 5.308274745941162,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 256,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 5.408440113067627,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 256,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 5.50860595703125,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 256,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 5.608773708343506,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 256,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 5.70888614654541,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 256,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 5.8090500831604,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 256,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 5.909216403961182,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 256,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 6.009382247924805,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 256,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 6.109548568725586,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 256,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 6.209714412689209,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 256,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 6.309879779815674,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 256,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 6.410046577453613,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 256,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 6.510211944580078,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 256,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 6.61041259765625,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 256,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 6.710582733154297,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 256,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 6.81073522567749,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 256,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 6.910886287689209,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 256,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 7.011087894439697,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 256,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 7.111187934875488,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 256,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 7.211289882659912,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 256,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 7.311391830444336,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 256,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 7.411510944366455,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 256,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 7.511631488800049,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 256,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 7.611728191375732,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 256,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 7.7118682861328125,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 256,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 7.812001705169678,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 256,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 7.912164211273193,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 256,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 8.012330055236816,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 256,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 8.11249828338623,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 256,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 8.212663650512695,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 256,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 8.312830924987793,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 256,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 8.412996292114258,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 256,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 8.513163566589355,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 256,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 8.61332893371582,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 256,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 8.713494300842285,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 256,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 8.813660621643066,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 256,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 8.913747787475586,
+            "write_requests": 0,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 9.015514373779297,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 9.115606307983398,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 9.215721130371094,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 9.315841674804688,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 9.416009902954102,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 9.516175270080566,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 9.616304397583008,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 9.716470718383789,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 9.81663703918457,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 9.916804313659668,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 10.01697063446045,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 10.11713695526123,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 10.217304229736328,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 10.31747055053711,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 10.417638778686523,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 10.517804145812988,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 10.61797046661377,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 10.718137741088867,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 10.818305015563965,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 10.918421745300293,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 11.0185546875,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 11.118684768676758,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 11.218850135803223,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 11.319016456604004,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 11.419215202331543,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 11.519325256347656,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 11.6194429397583,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 11.719557762145996,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 11.819671630859375,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 11.919778823852539,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 12.019916534423828,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 12.120083808898926,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 12.22024917602539,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 12.320357322692871,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 12.420519828796387,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 12.52062702178955,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 12.620802879333496,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 12.720972061157227,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 12.821133613586426,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 12.921236038208008,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 13.021364212036133,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 13.121453285217285,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 13.221606254577637,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 13.321769714355469,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 13.421934127807617,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 13.522101402282715,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 13.622267723083496,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 13.722436904907227,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 13.822602272033691,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 13.922760963439941,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 14.02292537689209,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 14.12303352355957,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 14.223182678222656,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 14.323288917541504,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 14.42341136932373,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 14.523523330688477,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 14.623641014099121,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 14.72377872467041,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 14.823885917663574,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 14.923973083496094,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 15.024079322814941,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 15.124167442321777,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 15.224257469177246,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 15.324422836303711,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 15.424530982971191,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 15.524704933166504,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 15.624795913696289,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 15.724963188171387,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 15.825105667114258,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 15.925272941589355,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 16.02543830871582,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 16.1256046295166,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 16.22576904296875,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 16.325937271118164,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 16.426071166992188,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 16.52623748779297,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 16.626415252685547,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 16.726547241210938,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 16.826656341552734,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 16.92674446105957,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 17.02690887451172,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 17.127016067504883,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 17.227182388305664,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 17.327281951904297,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 17.427501678466797,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 17.527612686157227,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 17.62778663635254,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 17.72795295715332,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 17.82811737060547,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 17.928251266479492,
+            "write_requests": 4,
+            "write_responses": 0
+        },
+        {
+            "data_transmitted": 288,
+            "invalidations": 0,
+            "read_requests": 8,
+            "read_responses": 0,
+            "time_elapsed": 18.028417587280273,
+            "write_requests": 4,
+            "write_responses": 0
+        }
+    ],
+    "summary": {
+        "data_transmitted": 288,
+        "invalidations": 0,
+        "read_requests": 8,
+        "read_responses": 0,
+        "write_requests": 4,
+        "write_responses": 0
+    }
+}

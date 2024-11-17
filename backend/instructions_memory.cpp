@@ -20,19 +20,18 @@ instruction_memory::instruction_memory(uint64_t cache_index) {
 
         if (inst.mnemonic == "INC" || inst.mnemonic == "DEC") {
             // Leer solo el bloque
-            iss >> inst.reg;
+            iss >> inst.regA;
         } 
         else if (inst.mnemonic == "JNZ") {
             // Leer registro y etiqueta
-            iss >> inst.reg >> inst.label;
+            iss >> inst.regA >> inst.label;
         }
         else if (inst.mnemonic == "LOAD") {
             // Leer registro, bloque y dirección
-            iss >> inst.reg >> inst.block >> inst.address;
+            iss >> inst.regA >> inst.regB;
         } else if (inst.mnemonic == "STORE") {
             // Leer registro, bloque, dato y dirección
-            iss >> inst.reg >> inst.block >> inst.data >> inst.address;
-            std::cout << "inst data " << inst.data;
+            iss >> inst.regA >> inst.regB;
         }
 
         // Agregar la instrucción al vector de instrucciones
@@ -55,5 +54,5 @@ int instruction_memory::find_label_line(std::string label) {
             return i;
         }
     }
-    return -1;  // Devuelve -1 si no se encuentra la etiqueta
+    return -1;  // -1 si no se encuentra la etiqueta
 }

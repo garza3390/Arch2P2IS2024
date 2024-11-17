@@ -1,1 +1,9 @@
-LOAD 1 0 10
+LOAD 1 2
+INC 1
+INC 1
+INC 1
+STORE 1 1
+LOAD 3 1
+loop_start
+DEC 3
+JNZ 3 loop_start

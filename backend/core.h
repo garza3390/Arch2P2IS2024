@@ -6,6 +6,9 @@
 #include "cache.h"
 #include <mutex>
 #include "instructions_memory.h"
+#include <cstdint>
+#include <atomic>
+
 
 struct bus;
 
@@ -14,6 +17,7 @@ struct core {
     std::array<uint64_t, 4> registers = {0};  // 4 registros de 64 bits, inicializados a 0
     instruction_memory inst_mem;
     std::mutex bus_mutex;
+    
 
     // Constructor que inicializa el índice de la cache
     core(int index, bool moesi_protocol) : core_cache(index, moesi_protocol), inst_mem(index) {}
@@ -33,8 +37,12 @@ struct core {
     // Salto condicional si el valor en el registro no es cero
     int jnz(int reg, const std::string& label, int current_line);
 
+    // Función que calcula el número de bloque de caché
+    uint64_t getCacheBlock(uint64_t ramAddress);
+
     // Función que ejecuta las instrucciones
-    void start(bus& bus);
+    void start(bus& bus,  std::atomic<bool>& stepper, std::atomic<bool>& step);
 };
 
 #endif  // CORE_H
+

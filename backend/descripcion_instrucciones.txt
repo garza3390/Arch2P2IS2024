@@ -1,0 +1,26 @@
+LOAD 1, 2               ; Cargar desde cache se carga en el registro 1 del cpu, el dato que hay en la dirección (de la RAM) almacenada en el registro 2
+STORE 2, 1              ; Almacenar en el bloque de cache el dato del registro 2 del cpu, y la dirección ram almacenada en el registro 1
+INC 0                   ; Incrementar el valor del registro 0
+DEC 1                   ; Decrementar el valor del registro 1
+JNZ 1, loop_start       ; Si el valor en el registro 1 del cpu no es cero, saltar a la etiqueta loop_start
+
+
+
+; Cargar en 1 lo que hay en la direccion almacenada en 2
+; Incrementarlo a 3
+; Almacenar el dato guardado en 1 en la direccion almacenada en 1 (el dato y la direccion seria 3)
+; Cargar el valor de la direccion 1 (la direccion 3) en el registro 3
+; Etiqueta
+; Decrementar en uno lo que hay en el registro 3
+; Salta si lo que hay en el registro 3 no es cero
+; El loop debe hacer 3 iteraciones
+
+LOAD 1 2
+INC 1
+INC 1
+INC 1
+STORE 1 1
+LOAD 3 1
+loop_start
+DEC 3
+JNZ 3 loop_start

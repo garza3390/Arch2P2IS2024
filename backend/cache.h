@@ -5,6 +5,7 @@
 #include <array>
 #include <string>
 #include <iostream>
+#include <cstdint>
 
 struct bus;
 
@@ -15,6 +16,7 @@ struct cache {
     std::array<std::string, 8> moesi_state;   // Estados MOESI por bloque
     bool bus_access_enabled = true;           // Acceso habilitado al bus
     bool moesi_protocol = true;
+    int cache_hits = 0;
     int cache_misses = 0;
     int invalidations = 0;
 
@@ -28,6 +30,9 @@ struct cache {
 
     // Función para imprimir el estado de cada bloque en la cache
     void print_cache_state(const std::string &core_name);
+
+    // Guardar metricas en archivo json
+    void save_metrics_to_json(const std::string& core_name) const;
 };
 
 #endif  // CACHE_H
