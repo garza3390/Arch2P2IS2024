@@ -48,12 +48,7 @@ void cache::save_in_cache(std::string state, uint64_t addr, uint64_t dat, bus& b
     orden[target_index] = 7;   
 
 
-    // Imprimir el contenido de `orden`
-    std::cout << "Contenido de 'orden' después de las modificaciones:" << std::endl;
-    for (size_t i = 0; i < orden.size(); ++i) {
-        std::cout << "orden[" << i << "] = " << orden[i] << std::endl;
-    }  
-
+    //pólitica write back
     if (moesi_state[target_index] == "M"){
         bus.ram.write(addresses[target_index], data[target_index]);
     }
@@ -88,7 +83,7 @@ void cache::write(uint64_t addr, uint64_t data, bus& bus) {
     for (int i = 0; i < 8; ++i) {
         if (addresses[i] == addr) {
             if (moesi_state[i]=="I"){
-                read(addr, bus);
+                read(addr, bus); 
             }
             bus.write_req_moesi(i, data, index); // Realizar la escritura si se encuentra
             found = true; // Indicar que se encontró la dirección
@@ -96,6 +91,8 @@ void cache::write(uint64_t addr, uint64_t data, bus& bus) {
         }
     }
 
+
+    // politica write allocate
     if (!found) {
         read(addr, bus);
         for (int i = 0; i < 8; ++i) {

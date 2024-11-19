@@ -60,7 +60,7 @@ uint64_t bus::read_req_moesi(uint64_t address, uint64_t core_index){
                 std::cout << "Dirección encontrada en Core: " << result.core << ", Bloque: " << result.block << std::endl;
                 
                 int data = cores[result.core]->core_cache.data[result.block];
-                ram.write(address, data);
+                //ram.write(address, data);
                 cores[result.core]->core_cache.save_in_cache("S", address, data, *this);
                 cores[core_index]->core_cache.save_in_cache("S", address, data, *this);
 
@@ -88,8 +88,9 @@ void bus::write_req_moesi(uint64_t block, uint64_t data,  uint64_t core_index){
             std::string& other_state = cores[result.core]->core_cache.moesi_state[result.block];
             if(other_state == "S"){ 
                 int data = cores[result.core]->core_cache.data[result.block];
-                ram.write(addre, data);
+                //ram.write(addre, data);
                 cores[result.core]->core_cache.save_in_cache("I", addre, data, *this);
+                cores[result.core]->core_cache.invalidations++;
             }
         }
     }

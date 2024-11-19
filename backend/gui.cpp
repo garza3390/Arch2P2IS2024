@@ -122,6 +122,11 @@ void MiVentana::create_cpu_grid(int row, int col, const std::string& label_text)
     Gtk::Label* invalidaciones_label = Gtk::make_managed<Gtk::Label>("Invalidaciones: 0");
     cpu_grid->attach(*invalidaciones_label, 4, 0, 2, 1); // Colocar la etiqueta en blanco en la columna 5
 
+
+    etiquetas_misses_inv.push_back(cache_mises_label);
+    etiquetas_misses_inv.push_back(invalidaciones_label);
+
+
     // Crear 8 etiquetas y añadirlas al grid interno en 2 columnas y 4 filas
     for (int i = 0; i < 8; ++i) {
         // Crear un nuevo sub-grid para las 3 etiquetas
@@ -366,6 +371,30 @@ void MiVentana::actualizar_reg(int cpu, int reg, int data) {
 
 
 
+// Función externa para modificar el texto de una etiqueta específica
+void MiVentana::actualizar_misses_inv(int cpu, int tipo, int data) {
+    std::cout << "actualizando el " << cpu << "en tipo " << tipo <<std::endl; 
+
+    //std::cout << "editando reg" << reg << "de core " << cpu << "con dato " << data << std::endl;
+    // Comprobar si cpu es menor a 4 y cache es menor a 9
+    if (cpu < 5 && tipo < 3) {
+        Gtk::Label* etiqueta = etiquetas_misses_inv[(cpu-1)*2 + tipo];
+        std::cout << (cpu-1)*4 + tipo << " colectada de " << etiquetas_misses_inv.size()<< std::endl; 
+        // Verificar que el índice de cache está dentro del rango válido
+        if (tipo == 0) {
+            // Actualizar el texto de la etiqueta
+            etiqueta->set_text("Cache Mises: " + std::to_string(data));
+        } else if (tipo == 1){
+            etiqueta->set_text("Invalidaciones: " + std::to_string(data));
+        }
+    } else {
+        // Si cpu >= 4 o cache >= 9, no se hace nada o se puede manejar de otra forma
+        std::cout << "Error: CPU debe ser menor que 4 y Cache debe ser menor que 9." << std::endl;
+    }
+}
+
+
+
 // Manejador de la señal clicked del botón
 void MiVentana::on_button_clicked(const std::string& label_text, 
                                   Gtk::ComboBoxText* instr_dropdown, 
@@ -437,12 +466,19 @@ void MiVentana::actualizar(){
     
     std::cout << "acutalizando " << std::endl;
     for (int j = 0; j < 4; ++j) {
+        actualizar_misses_inv(j+1, 0, mibus->cores[j]->core_cache.cache_misses);
+        actualizar_misses_inv(j+1, 1, mibus->cores[j]->core_cache.invalidations);
+    }
+
+    for (int j = 0; j < 4; ++j) {
         for (int i = 0; i < 4; ++i) {
             actualizar_reg(j+1, i, mibus->cores[j]->registers[i]);
         }
     }
 
     actualizar_mem_box(mibus->ram.memory);
+
+    
 }
 
 

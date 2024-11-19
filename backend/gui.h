@@ -18,6 +18,7 @@ public:
     void actualizar_mem_box(const std::array<unsigned long, 256>& datos);
     void actualizar_cache(int cpu, int cache, const std::string& mesi_text, const std::string& addr_text, const std::string& data_text);
     void actualizar_reg(int cpu, int reg, int data);
+    void actualizar_misses_inv(int cpu, int tipo, int data);
     // Estructura que almacena las etiquetas de cada grupo
     struct EtiquetasCache {
         Gtk::Label* mesi_label;
@@ -32,6 +33,7 @@ private:
 
     std::vector<EtiquetasCache> etiquetas_cache;
     std::vector<Gtk::Label*> etiquetas_reg;
+    std::vector<Gtk::Label*> etiquetas_misses_inv;
 
 
     Gtk::Button boton;
