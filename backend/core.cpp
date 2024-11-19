@@ -3,15 +3,19 @@
 #include <iostream>
 
 // Función para cargar datos desde RAM a un registro
-uint64_t core::load(int block, uint64_t addr, bus& bus) {
-    std::lock_guard<std::mutex> lock(bus_mutex);  // Proteger acceso al bus
-    return core_cache.read(block, addr, bus);
+void core::load(int reg, uint64_t addr, bus& bus) {
+    //std::lock_guard<std::mutex> lock(bus_mutex);  // Proteger acceso al bus
+    registers[reg] = core_cache.read(addr, bus);
+    std::cout << "se detecto" << registers[reg] << std::endl;
+
 }
 
 // Función para almacenar datos de un registro en RAM
-void core::store(int block, uint64_t addr, uint64_t data, bus& bus) {
-    std::lock_guard<std::mutex> lock(bus_mutex);  // Proteger acceso al bus
-    core_cache.write(block, addr, data, bus);
+void core::store(int reg, uint64_t addr, bus& bus) {
+    //std::lock_guard<std::mutex> lock(bus_mutex);  // Proteger acceso al bus
+    //core_cache.write(block, addr, bus);
+
+    std::cout << "yendo a guardar en cache" << std::endl;
 }
 
 // Incrementar el valor en un registro 
@@ -39,28 +43,31 @@ int core::jnz(int reg, const std::string& label, int current_line) {
 
 // Función que ejecuta las instrucciones
 void core::start(bus& bus) {
-    int current_line = 0;
-    while (current_line < inst_mem.instructions.size()) {
-        const auto& inst = inst_mem.instructions[current_line];
+    std::cout << "Iniciando Core" << std::endl;
+}
 
-        if (inst.mnemonic == "LOAD") {
-            uint64_t data = load(inst.block, inst.address, bus);
-            registers[inst.reg] = data;
-            current_line++;
-        } else if (inst.mnemonic == "STORE") {
-            store(inst.block, inst.address, inst.data, bus);
-            current_line++;
-        } else if (inst.mnemonic == "INC") {
-            inc(registers[inst.reg]);
-            current_line++;
-        } else if (inst.mnemonic == "DEC") {
-            dec(registers[inst.reg]);
-            current_line++;
-        } else if (inst.mnemonic == "JNZ") {
-            current_line = jnz(registers[inst.reg], inst.label, current_line);
-        } else {
-            std::cout << "Etiqueta: " << inst.mnemonic << std::endl;
-            current_line++;
-        }
+void core::run_instruccion(const std::string& selected_instr, const std::string& selected_reg, unsigned int addr, bus& bus){
+
+    int reg = 0;
+
+     if (selected_reg.rfind("REG", 0) == 0) {
+        // Extrae la parte numérica como substring y convierte a entero
+        reg =  std::stoi(selected_reg.substr(3));
     }
+
+
+     if (selected_instr == "LOAD") {
+            load(reg, addr, bus);
+        } else if (selected_instr == "STORE") {
+            store(reg, addr, bus);
+        } else if (selected_instr == "INC") {
+            inc(reg);
+        } else if (selected_instr == "DEC") {
+            dec(reg);
+        } else if (selected_instr == "JNZ") {
+            std::cout << "Etiqueta: " << selected_instr << std::endl;
+        } else {
+            std::cout << "Etiqueta: " << selected_instr << std::endl;
+        }
+
 }

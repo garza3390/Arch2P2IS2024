@@ -19,10 +19,10 @@ struct core {
     core(int index, bool moesi_protocol) : core_cache(index, moesi_protocol), inst_mem(index) {}
 
     // Función para cargar datos desde cache o RAM en caso de un miss
-    uint64_t load(int block, uint64_t addr, bus& bus);
+    void load(int reg, uint64_t addr, bus& bus);
 
     // Función para almacenar datos en cache
-    void store(int block, uint64_t addr, uint64_t data, bus& bus);
+    void store(int reg, uint64_t addr, bus& bus);
 
     // Incrementar el valor en un registro 
     void inc(int reg);
@@ -35,6 +35,8 @@ struct core {
 
     // Función que ejecuta las instrucciones
     void start(bus& bus);
+
+    void run_instruccion(const std::string& selected_instr, const std::string& selected_reg, unsigned int value, bus& bus);
 };
 
 #endif  // CORE_H

@@ -8,10 +8,16 @@
 #include "cache.h"
 #include "ram.h"
 #include "core.h"
-#include "gui.h"
 
+#include <vector>
 
 // Bus del sistema
+
+struct CoreBlock {
+        int core;
+        int block;
+    };
+
 struct bus {
     std::array<uint64_t, 256> address_port;  // Puerto de direcciones (conectado a RAM y cache de cada core)
     std::array<uint64_t, 256> data_port;     // Puerto de datos (conectado a RAM y cache de cada core)
@@ -27,12 +33,18 @@ struct bus {
     int invalidations = 0;
     uint64_t data_transmitted = 0;
 
-    MiVentana* ventana; // Agrega un puntero a MiVentana
+
+    
+
+    std::vector<CoreBlock> findAddressBus(int core_index, int address);
 
     // Constructor
-    bus(core& core0, core& core1, core& core2, core& core3, RAM& ram, MiVentana* ventana);
+    bus(core& core0, core& core1, core& core2, core& core3, RAM& ram);
 
     void update_cache();
+
+    // Función para manejar una solicitud de lectura en el bus
+    uint64_t read_req_moesi(uint64_t address, uint64_t core_index);
 
     // Función para manejar una solicitud de lectura en el bus
     uint64_t read_request_moesi(uint64_t address, uint64_t cache_index, uint64_t cache_block);

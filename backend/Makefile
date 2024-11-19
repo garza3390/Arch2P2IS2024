@@ -2,7 +2,7 @@
 TARGET = moesi
 
 # Archivos fuente y sus correspondientes archivos objeto
-SRC = main.cpp bus.cpp cache.cpp core.cpp instructions_memory.cpp ram.cpp gui.cpp
+SRC = main.cpp bus.cpp cache.cpp core.cpp instructions_memory.cpp ram.cpp gui.cpp interface.cpp
 OBJ = $(SRC:.cpp=.o)
 
 # Compilador y opciones

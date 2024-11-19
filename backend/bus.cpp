@@ -2,8 +2,8 @@
 #include <iostream>
 
 // Constructor del bus
-bus::bus(core& core0, core& core1, core& core2, core& core3, RAM& ram, MiVentana* ventana)
-    : address_port{0}, data_port{0}, ram(ram), ventana(ventana){
+bus::bus(core& core0, core& core1, core& core2, core& core3, RAM& ram)
+    : address_port{0}, data_port{0}, ram(ram){
     
     connected_caches.resize(4);
     connected_caches[0] = &core0.core_cache;
@@ -26,28 +26,51 @@ bus::bus(core& core0, core& core1, core& core2, core& core3, RAM& ram, MiVentana
 }
 
 void bus::update_cache() {
-    
-    // Imprimir estados para verificar el cumplimiento del protocolo
-    connected_caches[0]->print_cache_state("Core 0");
-    //core1.core_cache.print_cache_state("Core 1");
-    //core2.core_cache.print_cache_state("Core 2");
-    //core3.core_cache.print_cache_state("Core 3");
-    std::cout << "actualizando" << std::endl;
-
-    for (int j = 0; j < 4; ++j) {
-        for (int i = 0; i < 8; ++i) {
-        ventana->actualizar_cache(j+1, i+1, 
-                                connected_caches[j]->moesi_state[i], 
-                                std::to_string(connected_caches[j]->addresses[i]), 
-                                std::to_string(connected_caches[j]->data[i]));
-        }
-    }
-    for (int j = 0; j < 4; ++j) {
-        for (int i = 0; i < 4; ++i) {
-        ventana->actualizar_reg(j+1, i, cores[j]->registers[i]);
-        }
-    }
 }
+
+
+std::vector<CoreBlock> bus::findAddressBus(int core_index, int address) {
+
+    std::vector<CoreBlock> matches; // Lista para almacenar los resultados
+
+    for (int core=0; core<4; core++){
+        if(core != core_index){
+            for (int block=0; block<8; block++){
+                if (cores[core]->core_cache.addresses[block]==address){
+
+                    matches.push_back(CoreBlock{core, block}); // Agregar coincidencia
+                }
+            }
+        }
+    }
+    return matches; // Devolver todas las coincidencias
+}
+
+uint64_t bus::read_req_moesi(uint64_t address, uint64_t core_index){
+
+    std::vector<CoreBlock> results = findAddressBus(core_index, address);
+    if (results.empty()) {
+        std::cout << "guardar en cache como E desde ram" << std::endl;
+        int data = ram.read(address);
+        cores[core_index]->core_cache.save_in_cache("E", address, data);
+        return data;
+    } else {
+        for (const auto& result : results) {
+            if(cores[result.core]->core_cache.moesi_state[result.block]== "E"){
+                std::cout << "Dirección encontrada en Core: " << result.core << ", Bloque: " << result.block << std::endl;
+                cores[result.core]->core_cache.moesi_state[result.block] = "S";
+
+                int data = cores[result.core]->core_cache.data[result.block];
+                cores[core_index]->core_cache.save_in_cache("S", address, data);
+                return data;
+            }
+        }
+    }
+    return 0;
+}
+
+
+
 
 // Función para manejar una solicitud de lectura en el bus
 uint64_t bus::read_request_moesi(uint64_t address, uint64_t cache_index, uint64_t cache_block) {

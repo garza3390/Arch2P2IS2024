@@ -1,5 +1,6 @@
 #include "cache.h"
 #include "bus.h"
+#include <algorithm>
 
 // Constructor
 cache::cache(uint64_t index, bool moesi_protocol) {
@@ -7,41 +8,63 @@ cache::cache(uint64_t index, bool moesi_protocol) {
     this->index = index;             // Asignar el índice recibido como parámetro
     data.fill(0);                    // Inicializa los datos con 0
     addresses.fill(0);               // Inicializa las direcciones con 0
+    orden.fill(0);               // Inicializa las direcciones con 0
     moesi_state.fill("I");           // Inicializa el estado MOESI como "I" (Invalid)
     bus_access_enabled = true;       // Habilita el acceso al bus
     cache_misses = 0;                // Inicializa los fallos de cache en 0
     invalidations = 0;               // Inicializa las invalidaciones en 0
+
+    for (int i= 0; i<8; i++){
+        orden[i] = i;
+    }
 }
 
-uint64_t cache::read(int block, uint64_t addr,  bus& bus) {
 
-    if (moesi_state[block] == "I") {  // Si el bloque está en estado inválido
-        cache_misses++;
-        uint64_t data_m = 0;
-        //uint64_t data_m = bus.read_request(addr, index, block);
+void cache::save_in_cache(std::string state, uint64_t addr, uint64_t dat){
 
-        if(this->moesi_protocol == false){
-            data_m = bus.read_request_mesi(addr, index, block);
+    // Encuentra el iterador al menor elemento
+    auto min_it = std::min_element(orden.begin(), orden.end());
+
+    // Calcula el índice del menor elemento
+    int min_index = std::distance(orden.begin(), min_it);
+
+    // Asigna 8 al índice del menor elemento
+    orden[min_index] = 8;
+
+    // Resta 1 a todos los demás elementos
+    for (size_t i = 0; i < orden.size(); ++i) {
+        if (i != min_index) {
+            --orden[i]; // Decrementa en 1
         }
-        else{
-            data_m = bus.read_request_moesi(addr, index, block);
+    }
+
+    // Imprime el índice del valor mínimo
+    std::cout << "va en el bloque: " << min_index << std::endl;
+
+    moesi_state[min_index] = state;
+    addresses[min_index] = addr;
+    data[min_index] = dat;
+
+}
+
+
+uint64_t cache::read(uint64_t addr,  bus& bus) {
+
+    std::cout << "\n \n ****** Estado de la cache del " << index << " ****** \n";
+
+    for (int i = 0; i < 8; ++i) {
+        if (addresses[i] == addr){
+            if (moesi_state[i] == "I"){
+                cache_misses++;
+                return bus.read_req_moesi(addr, index);
+            } else {
+                return data[i];
+            }
         }
-
-        addresses[block] = addr;
-        data[block] = data_m;  // Carga el dato desde la memoria
-        moesi_state[block] = bus.connected_caches[index]->moesi_state[block];
-
-        //moesi_state[0] = bus.connected_caches[0].moesi_state[0];
-        //std::cout << "Cache 0 bloque 0 - " <<  bus.connected_caches[0].moesi_state[0] << "\n";
-        
-        bus.read_requests++;
-        bus.data_transmitted += 64;  // Se transmiten 64 bits
-
-        return data_m;
     }
-    else {
-        return data[block];
-    }
+    cache_misses++;
+    return bus.read_req_moesi(addr, index);
+
 }
 
 

@@ -12,6 +12,7 @@ struct cache {
     uint64_t index = 0;                       // indice para distinguir entre caches
     std::array<uint64_t, 8> data;             // 8 bloques de datos
     std::array<uint64_t, 8> addresses;        // Direcciones correspondientes
+    std::array<uint64_t, 8> orden;        // Direcciones correspondientes
     std::array<std::string, 8> moesi_state;   // Estados MOESI por bloque
     bool bus_access_enabled = true;           // Acceso habilitado al bus
     bool moesi_protocol = true;
@@ -22,7 +23,9 @@ struct cache {
     // Constructor
     cache(uint64_t index, bool moesi_protocol);
 
-    uint64_t read(int block, uint64_t addr, bus& bus);
+    uint64_t read(uint64_t addr, bus& bus);
+
+    void save_in_cache(std::string state, uint64_t addr, uint64_t dat);
 
     void write(int block, uint64_t addr, uint64_t data, bus& bus);
 

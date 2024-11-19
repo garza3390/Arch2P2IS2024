@@ -6,9 +6,6 @@
 
 int main(int argc, char *argv[]) {
 
-    auto app = Gtk::Application::create(argc, argv, "org.gtkmm.ejemplo");
-
-    MiVentana ventana;
 
     long datos[256] = {0}; // Llena el array con los datos que desees
     
@@ -21,7 +18,12 @@ int main(int argc, char *argv[]) {
     core core1(1, moesi_protocol); 
     core core2(2, moesi_protocol);
     core core3(3, moesi_protocol);
-    bus bus(core0, core1, core2, core3, ram, &ventana);
+    bus bus(core0, core1, core2, core3, ram);
+
+
+    auto app = Gtk::Application::create(argc, argv, "org.gtkmm.ejemplo");
+
+    MiVentana ventana(&bus);
     
     // Crear hilos para ejecutar el método start en cada core
     std::vector<std::thread> threads;
@@ -36,13 +38,7 @@ int main(int argc, char *argv[]) {
         thread.join();
     }
 
-    // Crear un hilo separado para ejecutar el loop de la aplicación GTK
-    std::thread gui_thread([&app, &ventana]() {
-        app->run(ventana);
-    });
-
-    // Esperar a que el hilo GUI termine
-    gui_thread.join();
+    app->run(ventana);
 
 
     // Imprimir estados para verificar el cumplimiento del protocolo

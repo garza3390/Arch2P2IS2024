@@ -5,11 +5,12 @@
 #include <sstream>
 #include <iostream>
 #include <pango/pango.h> // Incluye Pango para manejar fuentes
+#include "bus.h"
 
 
 class MiVentana : public Gtk::Window {
 public:
-    MiVentana(); // Constructor vacío
+    MiVentana(bus* bus); // Constructor vacío
     virtual ~MiVentana();
 
     // Función para inicializar la ventana
@@ -26,6 +27,8 @@ public:
 
 
 private:
+
+    bus* mibus; // Agrega un puntero a MiVentana
 
     std::vector<EtiquetasCache> etiquetas_cache;
     std::vector<Gtk::Label*> etiquetas_reg;

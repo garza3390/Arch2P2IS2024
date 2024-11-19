@@ -1,7 +1,7 @@
 #include "gui.h"
 #include <iostream>
 
-MiVentana::MiVentana() {
+MiVentana::MiVentana(bus* bus): mibus(bus) {
 
 set_title("Proyecto II Arqui II"); 
 set_default_size(1000, 800); 
@@ -385,6 +385,37 @@ void MiVentana::on_button_clicked(const std::string& label_text,
                 std::cout << "Instrucción seleccionada: " << selected_instr << std::endl;
                 std::cout << "Registro seleccionado: " << selected_reg << std::endl;
                 std::cout << "Dirección ingresada: 0x" << std::hex << value << std::endl;
+
+
+                if (label_text == "CPU1") {
+                    mibus->cores[0]->run_instruccion(selected_instr, selected_reg, value, *mibus);
+                } else if (label_text == "CPU2") {
+                    mibus->cores[1]->run_instruccion(selected_instr, selected_reg, value, *mibus);
+                } else if (label_text == "CPU3") {
+                    mibus->cores[2]->run_instruccion(selected_instr, selected_reg, value, *mibus);
+                } else if (label_text == "CPU4") {
+                    mibus->cores[3]->run_instruccion(selected_instr, selected_reg, value, *mibus);
+                } else {
+                    std::cout << "Core no encontrado" << std::endl;
+                }
+
+                
+
+                for (int j = 0; j < 4; ++j) {
+                    for (int i = 0; i < 8; ++i) {
+                    actualizar_cache(j+1, i+1, 
+                                            mibus->cores[j]->core_cache.moesi_state[i], 
+                                            std::to_string(mibus->cores[j]->core_cache.addresses[i]), 
+                                            std::to_string(mibus->cores[j]->core_cache.data[i]));
+                    }
+                }
+                std::cout << "acutalizando " << std::endl;
+                for (int j = 0; j < 4; ++j) {
+                    for (int i = 0; i < 4; ++i) {
+                        actualizar_reg(j+1, i, mibus->cores[j]->registers[i]);
+                    }
+                }
+
             } else {
                 std::cout << "Dirección fuera de rango (debe ser entre 0x0 y 0xFF)." << std::endl;
             }
