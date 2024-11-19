@@ -36,8 +36,7 @@ std::vector<CoreBlock> bus::findAddressBus(int core_index, int address) {
     for (int core=0; core<4; core++){
         if(core != core_index){
             for (int block=0; block<8; block++){
-                if (cores[core]->core_cache.addresses[block]==address){
-
+                if (cores[core]->core_cache.addresses[block]==address){ 
                     matches.push_back(CoreBlock{core, block}); // Agregar coincidencia
                 }
             }
@@ -52,21 +51,48 @@ uint64_t bus::read_req_moesi(uint64_t address, uint64_t core_index){
     if (results.empty()) {
         std::cout << "guardar en cache como E desde ram" << std::endl;
         int data = ram.read(address);
-        cores[core_index]->core_cache.save_in_cache("E", address, data);
+        cores[core_index]->core_cache.save_in_cache("E", address, data, *this);
         return data;
     } else {
         for (const auto& result : results) {
-            if(cores[result.core]->core_cache.moesi_state[result.block]== "E"){
+            std::string& other_state = cores[result.core]->core_cache.moesi_state[result.block];
+            if(other_state == "E" || other_state == "S" || other_state == "M"){ 
                 std::cout << "Dirección encontrada en Core: " << result.core << ", Bloque: " << result.block << std::endl;
-                cores[result.core]->core_cache.moesi_state[result.block] = "S";
-
+                
                 int data = cores[result.core]->core_cache.data[result.block];
-                cores[core_index]->core_cache.save_in_cache("S", address, data);
+                ram.write(address, data);
+                cores[result.core]->core_cache.save_in_cache("S", address, data, *this);
+                cores[core_index]->core_cache.save_in_cache("S", address, data, *this);
+
                 return data;
             }
         }
     }
     return 0;
+}
+
+
+void bus::write_req_moesi(uint64_t block, uint64_t data,  uint64_t core_index){
+    std::string& my_state = cores[core_index]->core_cache.moesi_state[block];
+    uint64_t addre = cores[core_index]->core_cache.addresses[block];
+    if (my_state == "E"){
+        cores[core_index]->core_cache.save_in_cache("M", addre, data, *this);
+    } else if (my_state == "S"){
+
+        cores[core_index]->core_cache.save_in_cache("E", addre, data, *this);
+
+
+
+        std::vector<CoreBlock> results = findAddressBus(core_index, addre);
+        for (const auto& result : results) {
+            std::string& other_state = cores[result.core]->core_cache.moesi_state[result.block];
+            if(other_state == "S"){ 
+                int data = cores[result.core]->core_cache.data[result.block];
+                ram.write(addre, data);
+                cores[result.core]->core_cache.save_in_cache("I", addre, data, *this);
+            }
+        }
+    }
 }
 
 

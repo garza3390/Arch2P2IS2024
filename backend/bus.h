@@ -45,6 +45,7 @@ struct bus {
 
     // Función para manejar una solicitud de lectura en el bus
     uint64_t read_req_moesi(uint64_t address, uint64_t core_index);
+    void write_req_moesi(uint64_t block, uint64_t data, uint64_t core_index);
 
     // Función para manejar una solicitud de lectura en el bus
     uint64_t read_request_moesi(uint64_t address, uint64_t cache_index, uint64_t cache_block);

@@ -15,7 +15,7 @@ public:
 
     // Función para inicializar la ventana
     void init_window();
-    void actualizar_mem_box(const long datos[256]);
+    void actualizar_mem_box(const std::array<unsigned long, 256>& datos);
     void actualizar_cache(int cpu, int cache, const std::string& mesi_text, const std::string& addr_text, const std::string& data_text);
     void actualizar_reg(int cpu, int reg, int data);
     // Estructura que almacena las etiquetas de cada grupo
@@ -59,6 +59,7 @@ private:
     void create_bus_grid();
     void create_info_grid();
     void create_mem_grid();
+    void actualizar();
 
 
     void gestion_LOAD(int cpu, const std::string& addr_text, const std::string& data_text);

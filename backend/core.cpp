@@ -6,14 +6,13 @@
 void core::load(int reg, uint64_t addr, bus& bus) {
     //std::lock_guard<std::mutex> lock(bus_mutex);  // Proteger acceso al bus
     registers[reg] = core_cache.read(addr, bus);
-    std::cout << "se detecto" << registers[reg] << std::endl;
-
 }
 
 // Función para almacenar datos de un registro en RAM
 void core::store(int reg, uint64_t addr, bus& bus) {
     //std::lock_guard<std::mutex> lock(bus_mutex);  // Proteger acceso al bus
     //core_cache.write(block, addr, bus);
+    core_cache.write(addr, registers[reg], bus);
 
     std::cout << "yendo a guardar en cache" << std::endl;
 }

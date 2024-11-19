@@ -1,7 +1,9 @@
 #include "gui.h"
 #include <iostream>
+#include <iomanip>
 
 MiVentana::MiVentana(bus* bus): mibus(bus) {
+
 
 set_title("Proyecto II Arqui II"); 
 set_default_size(1000, 800); 
@@ -28,11 +30,14 @@ create_mem_grid();
 add(grid_mem);
 
 show_all_children();
+actualizar();
 
 }
 
 // Destructor
-MiVentana::~MiVentana() {}
+MiVentana::~MiVentana() {
+    
+}
 
 void MiVentana::init_window() {
 
@@ -69,17 +74,18 @@ void MiVentana::create_mem_scroll_bar() {
     scrolled_window.add(scroll_box);
 }
 
-void MiVentana::actualizar_mem_box(const long datos[256]) {
-
+void MiVentana::actualizar_mem_box(const std::array<unsigned long, 256>& datos) {
+    // Eliminar los widgets actuales para evitar fugas de memoria
     for (auto* child : scroll_box.get_children()) {
         scroll_box.remove(*child);
-        delete child; // Eliminar los widgets para evitar fugas de memoria
+        delete child;
     }
 
-    // Crear y agregar los nuevos elementos con los datos del array
-    for (int i = 0; i < 256; ++i) {
+    // Crear y agregar nuevos elementos basados en el array de datos
+    for (size_t i = 0; i < datos.size(); ++i) {
         std::ostringstream oss;
-        oss << "0x" << std::hex << std::uppercase << (i < 16 ? "0" : "") << i << "   :    " << datos[i];
+        oss << "0x" << std::hex << std::uppercase << std::setfill('0') << std::setw(2) << i 
+            << "   :    " << datos[i];
         std::string direccion = oss.str();
 
         Gtk::Label* label = new Gtk::Label(direccion);
@@ -341,7 +347,7 @@ void MiVentana::actualizar_cache(int cpu, int cache, const std::string& mesi_tex
 // Función externa para modificar el texto de una etiqueta específica
 void MiVentana::actualizar_reg(int cpu, int reg, int data) {
 
-    std::cout << "editando reg" << reg << "de core " << cpu << "con dato " << data << std::endl;
+    //std::cout << "editando reg" << reg << "de core " << cpu << "con dato " << data << std::endl;
     // Comprobar si cpu es menor a 4 y cache es menor a 9
     if (cpu < 5 && reg < 4) {
         // Verificar que el índice de cache está dentro del rango válido
@@ -401,20 +407,7 @@ void MiVentana::on_button_clicked(const std::string& label_text,
 
                 
 
-                for (int j = 0; j < 4; ++j) {
-                    for (int i = 0; i < 8; ++i) {
-                    actualizar_cache(j+1, i+1, 
-                                            mibus->cores[j]->core_cache.moesi_state[i], 
-                                            std::to_string(mibus->cores[j]->core_cache.addresses[i]), 
-                                            std::to_string(mibus->cores[j]->core_cache.data[i]));
-                    }
-                }
-                std::cout << "acutalizando " << std::endl;
-                for (int j = 0; j < 4; ++j) {
-                    for (int i = 0; i < 4; ++i) {
-                        actualizar_reg(j+1, i, mibus->cores[j]->registers[i]);
-                    }
-                }
+                actualizar();
 
             } else {
                 std::cout << "Dirección fuera de rango (debe ser entre 0x0 y 0xFF)." << std::endl;
@@ -430,6 +423,26 @@ void MiVentana::on_button_clicked(const std::string& label_text,
     instr_dropdown->set_active(-1); // Deseleccionar cualquier opción en instr_dropdown
     reg_dropdown->set_active(-1); // Deseleccionar cualquier opción en reg_dropdown
     addr_entry->set_text("0x00"); // Limpiar el texto del Entry
+}
+
+void MiVentana::actualizar(){
+    for (int j = 0; j < 4; ++j) {
+        for (int i = 0; i < 8; ++i) {
+            actualizar_cache(j+1, i+1, 
+                            mibus->cores[j]->core_cache.moesi_state[i], 
+                            std::to_string(mibus->cores[j]->core_cache.addresses[i]), 
+                            std::to_string(mibus->cores[j]->core_cache.data[i]));
+        }
+    }
+    
+    std::cout << "acutalizando " << std::endl;
+    for (int j = 0; j < 4; ++j) {
+        for (int i = 0; i < 4; ++i) {
+            actualizar_reg(j+1, i, mibus->cores[j]->registers[i]);
+        }
+    }
+
+    actualizar_mem_box(mibus->ram.memory);
 }
 
 
