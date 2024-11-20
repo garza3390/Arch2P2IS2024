@@ -43,10 +43,12 @@ int core::jnz(int reg, const std::string& label, int current_line) {
 // Función que ejecuta las instrucciones
 void core::start(bus& bus) {
     std::cout << "Iniciando Core" << std::endl;
+    
 }
 
 void core::run_instruccion(const std::string& selected_instr, const std::string& selected_reg, unsigned int addr, bus& bus){
 
+    instrucciones++;
     int reg = 0;
 
      if (selected_reg.rfind("REG", 0) == 0) {

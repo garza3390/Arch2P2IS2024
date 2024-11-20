@@ -19,6 +19,7 @@ public:
     void actualizar_cache(int cpu, int cache, const std::string& mesi_text, const std::string& addr_text, const std::string& data_text);
     void actualizar_reg(int cpu, int reg, int data);
     void actualizar_misses_inv(int cpu, int tipo, int data);
+    void actualizar_bus(int inv, int read, int write, int datos_0, int datos_1, int datos_2, int datos_3);
     // Estructura que almacena las etiquetas de cada grupo
     struct EtiquetasCache {
         Gtk::Label* mesi_label;
@@ -34,6 +35,7 @@ private:
     std::vector<EtiquetasCache> etiquetas_cache;
     std::vector<Gtk::Label*> etiquetas_reg;
     std::vector<Gtk::Label*> etiquetas_misses_inv;
+    std::vector<Gtk::Label*> etiquetas_bus;
 
 
     Gtk::Button boton;
@@ -70,4 +72,54 @@ private:
     void gestion_INC(int cpu, int reg, int data);
 
 };
+
+
+class TablaDatos : public Gtk::Window {
+public:
+    TablaDatos(bus* bus);
+
+private:
+    bus* mibus; // Agrega un puntero a MiVentana
+    // Widgets principales
+    Gtk::TreeView tree_view_pe;
+    Gtk::TreeView tree_view_bus;
+    Gtk::ScrolledWindow scrolled_window_pe;
+    Gtk::ScrolledWindow scrolled_window_bus;
+    Gtk::Box main_box;
+
+    // Modelos de datos
+    Glib::RefPtr<Gtk::ListStore> list_store_pe;
+    Glib::RefPtr<Gtk::ListStore> list_store_bus;
+
+    // Columnas para los PEs
+    class ColumnasPE : public Gtk::TreeModel::ColumnRecord {
+    public:
+        ColumnasPE();
+        Gtk::TreeModelColumn<std::string> pe;
+        Gtk::TreeModelColumn<int> cache_misses;
+        Gtk::TreeModelColumn<int> cache_hits;
+        Gtk::TreeModelColumn<int> instrucciones;
+        Gtk::TreeModelColumn<int> invalidaciones;
+        Gtk::TreeModelColumn<int> datos_transmitidos;
+    };
+    ColumnasPE columnas_pe;
+
+    // Columnas para el bus
+    class ColumnasBus : public Gtk::TreeModel::ColumnRecord {
+    public:
+        ColumnasBus();
+        Gtk::TreeModelColumn<int> invalidaciones;
+        Gtk::TreeModelColumn<int> read_request;
+        Gtk::TreeModelColumn<int> write_request;
+        Gtk::TreeModelColumn<int> instrucciones_procesadas;
+    };
+    ColumnasBus columnas_bus;
+
+    // Métodos para cargar datos
+    void cargar_datos_pe();
+    void cargar_datos_bus();
+};
+
+
+
 #endif // GUI_H

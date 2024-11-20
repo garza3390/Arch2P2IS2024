@@ -21,7 +21,6 @@ cache::cache(uint64_t index, bool moesi_protocol) {
 
 
 void cache::save_in_cache(std::string state, uint64_t addr, uint64_t dat, bus& bus){
-
     // Intentar encontrar el índice de `addr` en `addresses`
     auto addr_it = std::find(addresses.begin(), addresses.end(), addr);
 
@@ -66,6 +65,7 @@ uint64_t cache::read(uint64_t addr,  bus& bus) {
 
     for (int i = 0; i < 8; ++i) {
         if (addresses[i] == addr){
+            cache_hits++;
             if (moesi_state[i] == "E" || moesi_state[i] == "M" || moesi_state[i] == "S"){
                 return data[i];
             } 
@@ -82,6 +82,7 @@ void cache::write(uint64_t addr, uint64_t data, bus& bus) {
     
     for (int i = 0; i < 8; ++i) {
         if (addresses[i] == addr) {
+            cache_hits++;
             if (moesi_state[i]=="I"){
                 read(addr, bus); 
             }

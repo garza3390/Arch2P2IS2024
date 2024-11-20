@@ -48,5 +48,9 @@ int main(int argc, char *argv[]) {
     //core3.core_cache.print_cache_state("Core 3");
     std::cout << "termina" << std::endl;
 
+    auto est = Gtk::Application::create(argc, argv, "org.gtkmm.tabla");
+    TablaDatos tabla_datos(&bus);
+    est->run(tabla_datos);
+
     return 0;
 }

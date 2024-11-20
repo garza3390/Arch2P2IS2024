@@ -15,6 +15,8 @@ struct core {
     instruction_memory inst_mem;
     std::mutex bus_mutex;
 
+    int instrucciones = 0; 
+
     // Constructor que inicializa el índice de la cache
     core(int index, bool moesi_protocol) : core_cache(index, moesi_protocol), inst_mem(index) {}
 

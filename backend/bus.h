@@ -32,6 +32,7 @@ struct bus {
     int write_requests = 0;
     int invalidations = 0;
     uint64_t data_transmitted = 0;
+    std::vector<int> data_trans;
 
 
     

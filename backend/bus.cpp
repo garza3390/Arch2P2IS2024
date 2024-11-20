@@ -21,6 +21,10 @@ bus::bus(core& core0, core& core1, core& core2, core& core3, RAM& ram)
     write_requests = 0;
     invalidations = 0;
     data_transmitted = 0;
+    data_trans.push_back(0);
+    data_trans.push_back(0);
+    data_trans.push_back(0);
+    data_trans.push_back(0);
 
     
 }
@@ -46,23 +50,33 @@ std::vector<CoreBlock> bus::findAddressBus(int core_index, int address) {
 }
 
 uint64_t bus::read_req_moesi(uint64_t address, uint64_t core_index){
-
+    
+    read_requests++;
     std::vector<CoreBlock> results = findAddressBus(core_index, address);
     if (results.empty()) {
-        std::cout << "guardar en cache como E desde ram" << std::endl;
         int data = ram.read(address);
+        std::cout << "guardar en cache como E desde ram en dire" << address <<std::endl;
         cores[core_index]->core_cache.save_in_cache("E", address, data, *this);
+        data_trans[core_index]++;
         return data;
     } else {
         for (const auto& result : results) {
             std::string& other_state = cores[result.core]->core_cache.moesi_state[result.block];
             if(other_state == "E" || other_state == "S" || other_state == "M"){ 
                 std::cout << "Dirección encontrada en Core: " << result.core << ", Bloque: " << result.block << std::endl;
+
+                if (other_state !="S"){
+                    data_trans[result.core]++;
+                }
+                data_trans[core_index]++;
                 
                 int data = cores[result.core]->core_cache.data[result.block];
                 //ram.write(address, data);
                 cores[result.core]->core_cache.save_in_cache("S", address, data, *this);
                 cores[core_index]->core_cache.save_in_cache("S", address, data, *this);
+
+
+                
 
                 return data;
             }
@@ -73,6 +87,7 @@ uint64_t bus::read_req_moesi(uint64_t address, uint64_t core_index){
 
 
 void bus::write_req_moesi(uint64_t block, uint64_t data,  uint64_t core_index){
+    write_requests++;
     std::string& my_state = cores[core_index]->core_cache.moesi_state[block];
     uint64_t addre = cores[core_index]->core_cache.addresses[block];
     if (my_state == "E"){
@@ -80,6 +95,7 @@ void bus::write_req_moesi(uint64_t block, uint64_t data,  uint64_t core_index){
     } else if (my_state == "S"){
 
         cores[core_index]->core_cache.save_in_cache("E", addre, data, *this);
+        data_trans[core_index]++;
 
 
 
@@ -91,6 +107,7 @@ void bus::write_req_moesi(uint64_t block, uint64_t data,  uint64_t core_index){
                 //ram.write(addre, data);
                 cores[result.core]->core_cache.save_in_cache("I", addre, data, *this);
                 cores[result.core]->core_cache.invalidations++;
+                data_trans[result.core]++;
             }
         }
     }

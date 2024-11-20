@@ -17,6 +17,7 @@ struct cache {
     bool bus_access_enabled = true;           // Acceso habilitado al bus
     bool moesi_protocol = true;
     int cache_misses = 0;
+    int cache_hits = 0;
     int invalidations = 0;
 
     cache() : index(0) {}
